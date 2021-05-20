@@ -134,6 +134,84 @@
   </entry>
   
   <entry>
+    <title>解决 Elasticsearch 7.X 分片数量不足问题</title>
+    <link href="https://blog.wanhebin.com/posts/solve-shortage-of-es7.x-shards/"/>
+    <id>https://blog.wanhebin.com/posts/solve-shortage-of-es7.x-shards/</id>
+    <published>2021-01-11T11:23:00.000Z</published>
+    <updated>2021-05-12T02:08:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;问题分析&quot;&gt;&lt;a href=&quot;#问题分析&quot; class=&quot;headerlink&quot; title=&quot;问题分析&quot;&gt;&lt;/a&gt;问题分析&lt;/h3&gt;&lt;p&gt;这是Logstash向ES请求创建新索引时，Logstash日志出现以下报错信息。&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="Elasticsearch" scheme="https://blog.wanhebin.com/categories/Elasticsearch/"/>
+    
+    
+    <category term="Elasticsearch" scheme="https://blog.wanhebin.com/tags/Elasticsearch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker Compose 部署 EFK</title>
+    <link href="https://blog.wanhebin.com/posts/docker-compose-deploys-efk/"/>
+    <id>https://blog.wanhebin.com/posts/docker-compose-deploys-efk/</id>
+    <published>2020-12-07T08:22:00.000Z</published>
+    <updated>2021-05-09T02:05:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;准备环境&quot;&gt;&lt;a href=&quot;#准备环境&quot; class=&quot;headerlink&quot; title=&quot;准备环境&quot;&gt;&lt;/a&gt;准备环境&lt;/h2&gt;&lt;p&gt;系统版本：CentOS 7.6&lt;/p&gt;
+&lt;p&gt;服务器配置：2H</summary>
+        
+      
+    
+    
+    
+    <category term="ELK" scheme="https://blog.wanhebin.com/categories/ELK/"/>
+    
+    
+    <category term="ELK" scheme="https://blog.wanhebin.com/tags/ELK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Elasticsearch 6.6.0 X-PACK 破解</title>
+    <link href="https://blog.wanhebin.com/posts/elasticsearch-6.6.0-x-pack-crack/"/>
+    <id>https://blog.wanhebin.com/posts/elasticsearch-6.6.0-x-pack-crack/</id>
+    <published>2020-11-18T08:26:00.000Z</published>
+    <updated>2021-05-10T03:10:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;准备环境&quot;&gt;&lt;a href=&quot;#准备环境&quot; class=&quot;headerlink&quot; title=&quot;准备环境&quot;&gt;&lt;/a&gt;准备环境&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;软件包版本&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="Elasticsearch" scheme="https://blog.wanhebin.com/categories/Elasticsearch/"/>
+    
+    
+    <category term="Elasticsearch" scheme="https://blog.wanhebin.com/tags/Elasticsearch/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ZABBIX 4.4安装部署</title>
     <link href="https://blog.wanhebin.com/posts/zabbix-installation-and-deployment/"/>
     <id>https://blog.wanhebin.com/posts/zabbix-installation-and-deployment/</id>
