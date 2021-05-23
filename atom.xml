@@ -242,4 +242,31 @@
     
   </entry>
   
+  <entry>
+    <title>MySQL 高可用架构之 MHA</title>
+    <link href="https://blog.wanhebin.com/posts/mysql-high-availability-architecture-mha/"/>
+    <id>https://blog.wanhebin.com/posts/mysql-high-availability-architecture-mha/</id>
+    <published>2020-07-01T14:38:00.000Z</published>
+    <updated>2020-10-06T04:04:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、MHA高可用介绍&quot;&gt;&lt;a href=&quot;#一、MHA高可用介绍&quot; class=&quot;headerlink&quot; title=&quot;一、MHA高可用介绍&quot;&gt;&lt;/a&gt;一、MHA高可用介绍&lt;/h2&gt;&lt;h3 id=&quot;1-简介&quot;&gt;&lt;a href=&quot;#1-简介&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
+    
+    <category term="MHA" scheme="https://blog.wanhebin.com/tags/MHA/"/>
+    
+  </entry>
+  
 </feed>
