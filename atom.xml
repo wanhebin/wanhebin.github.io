@@ -218,6 +218,31 @@
   </entry>
   
   <entry>
+    <title>MySQL 半同步复制</title>
+    <link href="https://blog.wanhebin.com/posts/mysql-semisynchronous-replication/"/>
+    <id>https://blog.wanhebin.com/posts/mysql-semisynchronous-replication/</id>
+    <published>2020-07-12T09:26:00.000Z</published>
+    <updated>2021-05-06T09:28:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;一、半同步复制&quot;&gt;&lt;a href=&quot;#一、半同步复制&quot; class=&quot;headerlink&quot; title=&quot;一、半同步复制&quot;&gt;&lt;/a&gt;一、半同步复制&lt;/h3&gt;&lt;h4 id=&quot;1-原理&quot;&gt;&lt;a href=&quot;#1-原理&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ZABBIX 4.4安装部署</title>
     <link href="https://blog.wanhebin.com/posts/zabbix-installation-and-deployment/"/>
     <id>https://blog.wanhebin.com/posts/zabbix-installation-and-deployment/</id>
@@ -239,6 +264,31 @@
     
     
     <category term="ZABBIX" scheme="https://blog.wanhebin.com/tags/ZABBIX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 异步复制</title>
+    <link href="https://blog.wanhebin.com/posts/mysql-asynchronous-replication/"/>
+    <id>https://blog.wanhebin.com/posts/mysql-asynchronous-replication/</id>
+    <published>2020-07-09T09:26:00.000Z</published>
+    <updated>2020-07-09T09:29:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;一、异步复制原理&quot;&gt;&lt;a href=&quot;#一、异步复制原理&quot; class=&quot;headerlink&quot; title=&quot;一、异步复制原理&quot;&gt;&lt;/a&gt;一、异步复制原理&lt;/h3&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
   </entry>
   
