@@ -268,6 +268,33 @@
   </entry>
   
   <entry>
+    <title>Redis Cluster 介绍与实战</title>
+    <link href="https://blog.wanhebin.com/posts/redis-cluster-introduction-and-actual-combat/"/>
+    <id>https://blog.wanhebin.com/posts/redis-cluster-introduction-and-actual-combat/</id>
+    <published>2020-07-12T04:46:00.000Z</published>
+    <updated>2020-08-05T11:03:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、Redis-Cluster-分布式分片集群&quot;&gt;&lt;a href=&quot;#一、Redis-Cluster-分布式分片集群&quot; class=&quot;headerlink&quot; title=&quot;一、Redis Cluster 分布式分片集群&quot;&gt;&lt;/a&gt;一、Redis Cluster</summary>
+        
+      
+    
+    
+    
+    <category term="Redis" scheme="https://blog.wanhebin.com/categories/Redis/"/>
+    
+    
+    <category term="Redis" scheme="https://blog.wanhebin.com/tags/Redis/"/>
+    
+    <category term="NoSQL" scheme="https://blog.wanhebin.com/tags/NoSQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MySQL 异步复制</title>
     <link href="https://blog.wanhebin.com/posts/mysql-asynchronous-replication/"/>
     <id>https://blog.wanhebin.com/posts/mysql-asynchronous-replication/</id>
@@ -316,6 +343,33 @@
     <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
     <category term="MHA" scheme="https://blog.wanhebin.com/tags/MHA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 备份与恢复</title>
+    <link href="https://blog.wanhebin.com/posts/mysql-backup-and-restore/"/>
+    <id>https://blog.wanhebin.com/posts/mysql-backup-and-restore/</id>
+    <published>2020-06-23T12:16:00.000Z</published>
+    <updated>2020-11-20T10:44:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、数据库备份的类型&quot;&gt;&lt;a href=&quot;#一、数据库备份的类型&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQ" scheme="https://blog.wanhebin.com/tags/MySQ/"/>
+    
+    <category term="XtraBackup" scheme="https://blog.wanhebin.com/tags/XtraBackup/"/>
     
   </entry>
   
