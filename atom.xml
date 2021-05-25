@@ -218,6 +218,33 @@
   </entry>
   
   <entry>
+    <title>MySQL 之 mysqldump 备份权限</title>
+    <link href="https://blog.wanhebin.com/posts/mysql-mysqldump-backup-permissions/"/>
+    <id>https://blog.wanhebin.com/posts/mysql-mysqldump-backup-permissions/</id>
+    <published>2020-10-02T08:26:00.000Z</published>
+    <updated>2020-11-03T02:22:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1-创建一个用于备份数据库的用户&quot;&gt;&lt;a href=&quot;#1-创建一个用于备份数据库的用户&quot; class=&quot;headerlink&quot; title=&quot;1.创建一个用于备份数据库的用户&quot;&gt;&lt;/a&gt;1.创建一个用于备份数据库的用户&lt;/h3&gt;&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQ" scheme="https://blog.wanhebin.com/tags/MySQ/"/>
+    
+    <category term="mysqldump" scheme="https://blog.wanhebin.com/tags/mysqldump/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MySQL 半同步复制</title>
     <link href="https://blog.wanhebin.com/posts/mysql-semisynchronous-replication/"/>
     <id>https://blog.wanhebin.com/posts/mysql-semisynchronous-replication/</id>
