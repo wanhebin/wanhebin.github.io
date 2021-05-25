@@ -90,6 +90,33 @@
   </entry>
   
   <entry>
+    <title>MySQL · 物理备份 · XtraBackup 备份原理</title>
+    <link href="https://blog.wanhebin.com/posts/mysql-physicalbackup-xtrabackup-principle/"/>
+    <id>https://blog.wanhebin.com/posts/mysql-physicalbackup-xtrabackup-principle/</id>
+    <published>2021-04-23T12:16:00.000Z</published>
+    <updated>2021-04-23T10:44:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
+    
+    <category term="XtraBackup" scheme="https://blog.wanhebin.com/tags/XtraBackup/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PHP 安装 pdo_sqlsrv 扩展(CentOS7)</title>
     <link href="https://blog.wanhebin.com/posts/php-install-pdo_sqlsrv-extension/"/>
     <id>https://blog.wanhebin.com/posts/php-install-pdo_sqlsrv-extension/</id>
@@ -394,9 +421,9 @@
     <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
     
     
-    <category term="MySQ" scheme="https://blog.wanhebin.com/tags/MySQ/"/>
-    
     <category term="XtraBackup" scheme="https://blog.wanhebin.com/tags/XtraBackup/"/>
+    
+    <category term="MySQ" scheme="https://blog.wanhebin.com/tags/MySQ/"/>
     
   </entry>
   
