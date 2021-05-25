@@ -266,7 +266,8 @@
 <li>对于innodb的表（支持事务），不锁表，cp数据页最终以数据文件方式保存下来，并且把redo和undo一并备走，属于热备方式。</li>
 <li>备份时读取配置文件/etc/my.cnf</li>
 </ul>
-<h3 id="4-3-下载安装XtraBackup软件"><a href="#4-3-下载安装XtraBackup软件" class="headerlink" title="4.3 下载安装XtraBackup软件"></a>4.3 下载安装XtraBackup软件</h3><ul>
+<h3 id="4-3-下载安装XtraBackup软件"><a href="#4-3-下载安装XtraBackup软件" class="headerlink" title="4.3 下载安装XtraBackup软件"></a>4.3 下载安装XtraBackup软件</h3><p>XtraBackup 的 RPM 包可去 <a target="_blank" rel="noopener" href="https://www.percona.com/downloads/Percona-XtraBackup-2.4/LATEST/">Percona</a> 官网下载相应的版本。</p>
+<ul>
 <li>安装依赖</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y perl perl-devel libaio libaio-devel perl-Time-HiRes perl-DBD-MySQL</span><br></pre></td></tr></table></figure>
