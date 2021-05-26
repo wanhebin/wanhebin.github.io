@@ -421,9 +421,9 @@
     <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
     
     
-    <category term="XtraBackup" scheme="https://blog.wanhebin.com/tags/XtraBackup/"/>
+    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
-    <category term="MySQ" scheme="https://blog.wanhebin.com/tags/MySQ/"/>
+    <category term="XtraBackup" scheme="https://blog.wanhebin.com/tags/XtraBackup/"/>
     
   </entry>
   
@@ -440,6 +440,32 @@
         
         
     <summary type="html">&lt;h2 id=&quot;一、日志简介&quot;&gt;&lt;a href=&quot;#一、日志简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 事务详解</title>
+    <link href="https://blog.wanhebin.com/posts/mysql-transaction-description/"/>
+    <id>https://blog.wanhebin.com/posts/mysql-transaction-description/</id>
+    <published>2020-06-21T13:14:00.000Z</published>
+    <updated>2020-08-27T09:27:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1-事务介绍&quot;&gt;&lt;a href=&quot;#1-事务介绍&quot; class=&quot;headerlink&quot; title=&quot;1.事务介绍&quot;&gt;&lt;/a&gt;1.事务介绍&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;在 MySQL 中只有使用了 InnoDB</summary>
         
       
     
@@ -501,31 +527,6 @@
     <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
     <category term="PHP" scheme="https://blog.wanhebin.com/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL 误删登录用户故障解决</title>
-    <link href="https://blog.wanhebin.com/posts/mysql-mistakenlydelete-loginuser-solution/"/>
-    <id>https://blog.wanhebin.com/posts/mysql-mistakenlydelete-loginuser-solution/</id>
-    <published>2020-06-03T13:14:00.000Z</published>
-    <updated>2020-06-27T09:28:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;1-模拟误删用户表的用户&quot;&gt;&lt;a href=&quot;#1-模拟误删用户表的用户&quot; class=&quot;headerlink&quot; title=&quot;1.模拟误删用户表的用户&quot;&gt;&lt;/a&gt;1.模拟误删用户表的用户&lt;/h3&gt;&lt;h5 id=&quot;1-1-查看下当前用户表的用户&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
   </entry>
   
