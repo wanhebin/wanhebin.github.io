@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nginx · HTTPS 详解 | HEBIN-技术栈</title><meta name="keywords" content="Nginx,HTTPS"><meta name="author" content="Hebin Wan"><meta name="copyright" content="Hebin Wan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、HTTPS基本概述为什么需要使用 HTTPS，因为 HTTP 不安全，当我们使用 HTTP 网站时，会遭到劫持和篡改，如果采用 HTTPS 协议，那么数据在传输过程中是加密的，所以黑客无法窃取或者篡改数据报文信息，同时也避免网站传输时信息泄露。 那么我们在实现 HTTPS 时，需要了解 SSL 协议，但我们现在使用的更多的是 TLS 加密协议。 那么 TLS 是怎么保证明文消息被加密的呢？在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx · HTTPS 详解">
+<meta property="og:url" content="https://blog.wanhebin.com/posts/nginx-https-detailed-explanation/index.html">
+<meta property="og:site_name" content="HEBIN-技术栈">
+<meta property="og:description" content="一、HTTPS基本概述为什么需要使用 HTTPS，因为 HTTP 不安全，当我们使用 HTTP 网站时，会遭到劫持和篡改，如果采用 HTTPS 协议，那么数据在传输过程中是加密的，所以黑客无法窃取或者篡改数据报文信息，同时也避免网站传输时信息泄露。 那么我们在实现 HTTPS 时，需要了解 SSL 协议，但我们现在使用的更多的是 TLS 加密协议。 那么 TLS 是怎么保证明文消息被加密的呢？在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic-cdn.wanhebin.com/2021/05/26/1ebbee7131bbf.png">
+<meta property="article:published_time" content="2019-12-01T13:14:00.000Z">
+<meta property="article:modified_time" content="2021-03-27T09:28:00.000Z">
+<meta property="article:author" content="Hebin Wan">
+<meta property="article:tag" content="Nginx">
+<meta property="article:tag" content="HTTPS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic-cdn.wanhebin.com/2021/05/26/1ebbee7131bbf.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.wanhebin.com/posts/nginx-https-detailed-explanation/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Nginx · HTTPS 详解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-27 17:28:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="HEBIN-技术栈" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-cogs"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://docs.wanhebin.com/"><i class="fa-fw fas fa-book"></i><span> 文档</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://pic.wanhebin.com/"><i class="fa-fw fas fa-images"></i><span> 图床</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://download.wanhebin.com/"><i class="fa-fw fas fa-download"></i><span> 下载</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://sql.wanhebin.com/"><i class="fa-fw fas fa-database"></i><span> SQL优化</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/musicplayer/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/bizhi/"><i class="fa-fw fas fa-image"></i><span> 壁纸</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/games/Mikutap/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic-cdn.wanhebin.com/2021/05/26/1ebbee7131bbf.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">HEBIN-技术栈</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-cogs"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://docs.wanhebin.com/"><i class="fa-fw fas fa-book"></i><span> 文档</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://pic.wanhebin.com/"><i class="fa-fw fas fa-images"></i><span> 图床</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://download.wanhebin.com/"><i class="fa-fw fas fa-download"></i><span> 下载</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://sql.wanhebin.com/"><i class="fa-fw fas fa-database"></i><span> SQL优化</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/musicplayer/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/bizhi/"><i class="fa-fw fas fa-image"></i><span> 壁纸</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/games/Mikutap/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Nginx · HTTPS 详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-12-01T13:14:00.000Z" title="发表于 2019-12-01 21:14:00">2019-12-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-27T09:28:00.000Z" title="更新于 2021-03-27 17:28:00">2021-03-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Nginx/">Nginx</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Nginx · HTTPS 详解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、HTTPS基本概述"><a href="#一、HTTPS基本概述" class="headerlink" title="一、HTTPS基本概述"></a>一、HTTPS基本概述</h2><p>为什么需要使用 HTTPS，因为 HTTP 不安全，当我们使用 HTTP 网站时，会遭到劫持和篡改，如果采用 HTTPS 协议，那么数据在传输过程中是加密的，所以黑客无法窃取或者篡改数据报文信息，同时也避免网站传输时信息泄露。</p>
+<p>那么我们在实现 HTTPS 时，需要了解 SSL 协议，但我们现在使用的更多的是 TLS 加密协议。</p>
+<p>那么 TLS 是怎么保证明文消息被加密的呢？在 OSI 七层模型中，应用层是http协议，那么在应用层协议之下，我们的表示层，是 SSL 协议所发挥作用的一层，他通过（握手、交换秘钥、告警、加密）等方式，是应用层 HTTP 协议没有感知的情况下做到了数据的安全加密</p>
+<p>&nbsp;</p>
+<h2 id="二、HTTPS证书下发流程"><a href="#二、HTTPS证书下发流程" class="headerlink" title="二、HTTPS证书下发流程"></a>二、HTTPS证书下发流程</h2><p>我们首先需要申请证书，先去登记机构进行身份登记，我是谁，我是干嘛的，我想做什么，然后登记机构再通过CSR发给 CA，CA 中心通过后会生成一堆公钥和私钥，公钥会在 CA 证书链中保存，公钥和私钥证书我们拿到后，会将其部署在WEB服务器上。</p>
+<ol>
+<li>当浏览器访问我们的 https 站点时，他会去请求我们的证书。</li>
+<li>Nginx 这样的 web服务器 会将我们的公钥证书发给浏览器。</li>
+<li>浏览器会去验证我们的证书是否合法有效。</li>
+<li>CA 机构会将过期的证书放置在CRL服务器，CRL服务的验证效率是非常差的，所以CA有推出了 OCSP 响应程序，OCSP 响应程序可以查询指定的一个证书是否过去，所以浏览器可以直接查询 OSCP 响应程序，但 OSCP 响应程序性能还不是很高。</li>
+<li>Nginx会有一个 OCSP 的开关，当我们开启后，Nginx会主动上 OCSP 上查询，这样大量的客户端直接从 Nginx 获取证书是否有效。</li>
+</ol>
+<p>&nbsp;</p>
+<h2 id="三、证书类型介绍"><a href="#三、证书类型介绍" class="headerlink" title="三、证书类型介绍"></a>三、证书类型介绍</h2><table>
+<thead>
+<tr>
+<th>对比</th>
+<th>域名型DV</th>
+<th>企业型OV</th>
+<th>增强型EV</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>绿色地址栏</td>
+<td>小锁标记+https</td>
+<td>小锁标记+https</td>
+<td>小锁标记+企业名称+https</td>
+</tr>
+<tr>
+<td>一般用途</td>
+<td>个人站点和应用； 简单的https加密需求</td>
+<td>电子商务站点和应用； 中小型企业站点</td>
+<td>大型金融平台； 大型企业和政府机构站点</td>
+</tr>
+<tr>
+<td>审核内容</td>
+<td>域名所有权验证</td>
+<td>全面的企业身份验证； 域名所有权验证</td>
+<td>最高等级的企业身份验证； 域名所有权验证</td>
+</tr>
+<tr>
+<td>单次申请年限</td>
+<td>10分钟-24小时</td>
+<td>3-5个工作日</td>
+<td>5-7个工作日</td>
+</tr>
+<tr>
+<td>赔付保障金</td>
+<td>——</td>
+<td>125-175万美金</td>
+<td>150-175万美金</td>
+</tr>
+</tbody></table>
+<h3 id="1-购买证书选择"><a href="#1-购买证书选择" class="headerlink" title="1.购买证书选择"></a>1.购买证书选择</h3><ul>
+<li>单域名 SSL 证书，例如：<a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a></li>
+<li>多域名 SSL 证书，例如：<a target="_blank" rel="noopener" href="http://www.xxx.com、cdn.xxx.com、img.xxx.com/">www.xxx.com、cdn.xxx.com、img.xxx.com</a></li>
+<li>通配符域名（泛域名）SSL 证书，例如：*.xxx.com</li>
+</ul>
+<h3 id="2-HTTPS证书注意事项"><a href="#2-HTTPS证书注意事项" class="headerlink" title="2.HTTPS证书注意事项"></a>2.HTTPS证书注意事项</h3><ol>
+<li><p>https 不支持续费，证书到期需要重新申请并进行替换。</p>
+</li>
+<li><p>https 不支持三级域名解析，如 test.m.haoda.com。</p>
+</li>
+<li><ul>
+<li><p>https 显示绿色，说明整个网站的url都是 https 的</p>
+</li>
+<li><p>https 显示黄色，因为网站代码中包含http 的不安全链接</p>
+</li>
+<li><p>https 显示红色，那么证书是假的或者证书过期。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>&nbsp;</p>
+<h2 id="四、配置单台机器-HTTPS-证书"><a href="#四、配置单台机器-HTTPS-证书" class="headerlink" title="四、配置单台机器 HTTPS 证书"></a>四、配置单台机器 HTTPS 证书</h2><h3 id="1-检查-Nginx-是否有-HTTPS-模块"><a href="#1-检查-Nginx-是否有-HTTPS-模块" class="headerlink" title="1.检查 Nginx 是否有 HTTPS 模块"></a>1.检查 Nginx 是否有 HTTPS 模块</h3><p>Nginx 需要 <code>--with-http_ssl_module</code> 模块才能使用 HTTPS</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ nginx -V</span><br><span class="line">--with-http_ssl_module</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建存放证书目录"><a href="#2-创建存放证书目录" class="headerlink" title="2.创建存放证书目录"></a>2.创建存放证书目录</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ mkdir /etc/nginx/ssl_key</span><br><span class="line">$ <span class="built_in">cd</span> /etc/nginx/ssl_key/</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-生成证书"><a href="#3-生成证书" class="headerlink" title="3.生成证书"></a>3.生成证书</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ openssl genrsa -idea -out server.key 2048</span><br><span class="line">Generating RSA private key, 2048 bit long modulus</span><br><span class="line">..................................................................................................................................+++</span><br><span class="line">...............................................................................+++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">Enter pass phrase <span class="keyword">for</span> server.key:</span><br><span class="line">Verifying - Enter pass phrase <span class="keyword">for</span> server.key:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ openssl req -days 36500 -x509 -sha256 -nodes -newkey rsa:2048 -keyout server.key -out server.crt</span><br><span class="line">Generating a 2048 bit RSA private key</span><br><span class="line">...................................................+++</span><br><span class="line">.................+++</span><br><span class="line">writing new private key to <span class="string">&#x27;server.key&#x27;</span></span><br><span class="line">-----</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter <span class="string">&#x27;.&#x27;</span>, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [XX]:CN</span><br><span class="line">State or Province Name (full name) []:AH</span><br><span class="line">Locality Name (eg, city) [Default City]:LA</span><br><span class="line">Organization Name (eg, company) [Default Company Ltd]:WANHEBIN</span><br><span class="line">Organizational Unit Name (eg, section) []:WANHEBIN</span><br><span class="line">Common Name (eg, your name or your server<span class="string">&#x27;s hostname) []:discuz.test.com</span></span><br><span class="line"><span class="string">Email Address []:123@qq.com</span></span><br><span class="line"><span class="string">You have new mail in /var/spool/mail/root</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ openssl req -days 36500 -x509 -sha256 -nodes -newkey rsa:2048 -keyout server.key -out server.crt</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>-req        用于创建新的证书</p>
+<p>-new      创建的是新证书 </p>
+<p>-x509     定义证书的格式为标准格式</p>
+<p>-key       调用的私钥文件信息</p>
+<p>-out       输出证书文件信息</p>
+<p>-days     证书的有效期</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ll</span><br><span class="line">total 8</span><br><span class="line">-rw-r--r-- 1 root root 1375 Mar  5 15:15 server.crt</span><br><span class="line">-rw-r--r-- 1 root root 1704 Mar  5 15:15 server.key</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Nginx-证书配置语法"><a href="#4-Nginx-证书配置语法" class="headerlink" title="4.Nginx 证书配置语法"></a>4.Nginx 证书配置语法</h3><ul>
+<li><strong>启动 SSL 功能</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Syntax:	ssl on | off;</span><br><span class="line">Default:	ssl off;</span><br><span class="line">Context:	http, server</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>证书文件</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Syntax:	ssl_certificate file;</span><br><span class="line">Default:	—</span><br><span class="line">Context:	http, server</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>私钥文件</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Syntax:	ssl_certificate_key file;</span><br><span class="line">Default:	—</span><br><span class="line">Context:	http, server</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-配置-Nginx-证书"><a href="#5-配置-Nginx-证书" class="headerlink" title="5.配置 Nginx 证书"></a>5.配置 Nginx 证书</h3><h4 id="5-1-配置-Nginx"><a href="#5-1-配置-Nginx" class="headerlink" title="5.1 配置 Nginx"></a>5.1 配置 Nginx</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim /etc/nginx/conf.d/s.linux.com.conf</span><br><span class="line">server &#123;</span><br><span class="line">	ssl on;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name s.linux.com;</span><br><span class="line"></span><br><span class="line">    ssl_certificate /etc/nginx/ssl_key/server.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl_key/server.key;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root /code/https;</span><br><span class="line">        index index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-2-重启-Nginx"><a href="#5-2-重启-Nginx" class="headerlink" title="5.2 重启 Nginx"></a>5.2 重启 Nginx</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ systemctl restart nginx</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-3-配置站点"><a href="#5-3-配置站点" class="headerlink" title="5.3 配置站点"></a>5.3 配置站点</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">&quot;test https&quot;</span> &gt; /code/https/index.html</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;</p>
+<h2 id="五、全站-HTTPS"><a href="#五、全站-HTTPS" class="headerlink" title="五、全站 HTTPS"></a>五、全站 HTTPS</h2><h3 id="1-环境准备"><a href="#1-环境准备" class="headerlink" title="1.环境准备"></a>1.环境准备</h3><table>
+<thead>
+<tr>
+<th>主机</th>
+<th>外网IP</th>
+<th>内网IP</th>
+<th>身份</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lb-01</td>
+<td>10.0.0.5</td>
+<td>172.16.1.5</td>
+<td>负载均衡</td>
+</tr>
+<tr>
+<td>web-01</td>
+<td>10.0.0.6</td>
+<td>172.16.1.6</td>
+<td>web服务器</td>
+</tr>
+<tr>
+<td>web-02</td>
+<td>10.0.0.7</td>
+<td>172.16.1.8</td>
+<td>web服务器</td>
+</tr>
+</tbody></table>
+<h3 id="2-配置-web服务器（两台）"><a href="#2-配置-web服务器（两台）" class="headerlink" title="2.配置 web服务器（两台）"></a>2.配置 web服务器（两台）</h3><h4 id="2-1-配置-Nginx-配置文件"><a href="#2-1-配置-Nginx-配置文件" class="headerlink" title="2.1 配置 Nginx 配置文件"></a>2.1 配置 Nginx 配置文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web-01 conf.d]<span class="comment"># vim s.linux.com.conf </span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name s.linux.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root /code/https;</span><br><span class="line">        index index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重启 nginx 服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web-01 conf.d]<span class="comment"># systemctl restart nginx</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-同步配置文件"><a href="#2-2-同步配置文件" class="headerlink" title="2.2 同步配置文件"></a>2.2 同步配置文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web-01 conf.d]<span class="comment"># scp s.linux.com.conf 172.16.1.8:/etc/nginx/conf.d/</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-配置站点目录文件"><a href="#2-3-配置站点目录文件" class="headerlink" title="2.3 配置站点目录文件"></a>2.3 配置站点目录文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web-01 conf.d]<span class="comment"># mkdir /code/https</span></span><br><span class="line">[root@web-01 conf.d]<span class="comment"># echo &quot;https1111&quot; &gt; /code/https/index.html</span></span><br><span class="line">[root@web-02 conf.d]<span class="comment"># mkdir /code/https</span></span><br><span class="line">[root@web-02 conf.d]<span class="comment"># echo &quot;https2222&quot; &gt; /code/https/index.html</span></span><br><span class="line">[root@web-01 conf.d]<span class="comment"># chown -R www.www /code/https/</span></span><br><span class="line">[root@web-02 conf.d]<span class="comment"># chown -R www.www /code/https/</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-推送、上传证书文件"><a href="#2-4-推送、上传证书文件" class="headerlink" title="2.4 推送、上传证书文件"></a>2.4 推送、上传证书文件</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web-01 conf.d]<span class="comment"># scp -r /etc/nginx/ssl_key 172.16.1.4:/etc/nginx/</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-5-配置负载均衡机器-Nginx"><a href="#2-5-配置负载均衡机器-Nginx" class="headerlink" title="2.5 配置负载均衡机器 Nginx"></a>2.5 配置负载均衡机器 Nginx</h4><ul>
+<li><p><strong>写法一</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@lb-01 conf.d]<span class="comment"># vim s.linux.com.conf</span></span><br><span class="line">upstream webserver &#123;</span><br><span class="line">    server 172.16.1.7:80;</span><br><span class="line">    server 172.16.1.8:80;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name s.linux.com;</span><br><span class="line">    <span class="built_in">return</span> 302 https://$server_name<span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name s.linux.com;</span><br><span class="line">    </span><br><span class="line">    ssl_certificate /etc/nginx/ssl_key/server.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl_key/server.key;</span><br><span class="line">    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    ssl_session_cache shared:SSL:10m;</span><br><span class="line">    ssl_session_timeout 10m;</span><br><span class="line">    error_page 497  https://$host<span class="variable">$request_uri</span>;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://webserver;</span><br><span class="line">        proxy_set_header host <span class="variable">$http_host</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>写法二</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@lb-01 conf.d]<span class="comment"># vim s.linux.com.conf</span></span><br><span class="line">upstream webserver &#123;</span><br><span class="line">    server 172.16.1.7:80;</span><br><span class="line">    server 172.16.1.8:80;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name s.linux.com;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#HTTP_TO_HTTPS_START</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$server_port</span> !~ 443)&#123;</span><br><span class="line">        rewrite ^(/.*)$ https://$host<span class="variable">$1</span> permanent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">#HTTP_TO_HTTPS_END</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#SSL-START</span></span><br><span class="line">    ssl_certificate /etc/nginx/ssl_key/server.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/ssl_key/server.key;</span><br><span class="line">    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    ssl_session_cache shared:SSL:10m;</span><br><span class="line">    ssl_session_timeout 10m;</span><br><span class="line">    error_page 497  https://$host<span class="variable">$request_uri</span>;</span><br><span class="line">	<span class="comment">#SSL-END</span></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://webserver;</span><br><span class="line">        proxy_set_header host <span class="variable">$http_host</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong></p>
+<p>以上两种 SSL 配置方法选择一种即可。</p>
+</blockquote>
+<p>配置完成后，重启 nginx 服务，然后使用浏览器验证配置是否生效。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Hebin Wan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.wanhebin.com/posts/nginx-https-detailed-explanation/">https://blog.wanhebin.com/posts/nginx-https-detailed-explanation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.wanhebin.com" target="_blank">HEBIN-技术栈</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Nginx/">Nginx</a><a class="post-meta__tags" href="/tags/HTTPS/">HTTPS</a></div><div class="post_share"><div class="social-share" data-image="https://pic-cdn.wanhebin.com/2021/05/26/1ebbee7131bbf.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpayqr.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpayqr.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipayqr.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipayqr.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/posts/nginx-rewrite-rules/"><img class="prev-cover" src="https://pic-cdn.wanhebin.com/2021/05/26/1ebbee7131bbf.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Nginx Rewrite 规则</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/nginx-rewrite-rules/" title="Nginx Rewrite 规则"><img class="cover" src="https://pic-cdn.wanhebin.com/2021/05/26/1ebbee7131bbf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-14</div><div class="title">Nginx Rewrite 规则</div></div></a></div><div><a href="/posts/nginx-common-modules/" title="Nginx 常用模块"><img class="cover" src="https://pic-cdn.wanhebin.com/2021/05/26/1ebbee7131bbf.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-20</div><div class="title">Nginx 常用模块</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Twikoo</span><span class="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Hebin Wan</div><div class="author-info__description">乐于分享IT技术的站点</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wanhebin"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:2412620343@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81HTTPS%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0"><span class="toc-text">一、HTTPS基本概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81HTTPS%E8%AF%81%E4%B9%A6%E4%B8%8B%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-text">二、HTTPS证书下发流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%AF%81%E4%B9%A6%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="toc-text">三、证书类型介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B4%AD%E4%B9%B0%E8%AF%81%E4%B9%A6%E9%80%89%E6%8B%A9"><span class="toc-text">1.购买证书选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-HTTPS%E8%AF%81%E4%B9%A6%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">2.HTTPS证书注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%85%8D%E7%BD%AE%E5%8D%95%E5%8F%B0%E6%9C%BA%E5%99%A8-HTTPS-%E8%AF%81%E4%B9%A6"><span class="toc-text">四、配置单台机器 HTTPS 证书</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A3%80%E6%9F%A5-Nginx-%E6%98%AF%E5%90%A6%E6%9C%89-HTTPS-%E6%A8%A1%E5%9D%97"><span class="toc-text">1.检查 Nginx 是否有 HTTPS 模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E5%AD%98%E6%94%BE%E8%AF%81%E4%B9%A6%E7%9B%AE%E5%BD%95"><span class="toc-text">2.创建存放证书目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6"><span class="toc-text">3.生成证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Nginx-%E8%AF%81%E4%B9%A6%E9%85%8D%E7%BD%AE%E8%AF%AD%E6%B3%95"><span class="toc-text">4.Nginx 证书配置语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E9%85%8D%E7%BD%AE-Nginx-%E8%AF%81%E4%B9%A6"><span class="toc-text">5.配置 Nginx 证书</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-%E9%85%8D%E7%BD%AE-Nginx"><span class="toc-text">5.1 配置 Nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-%E9%87%8D%E5%90%AF-Nginx"><span class="toc-text">5.2 重启 Nginx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-%E9%85%8D%E7%BD%AE%E7%AB%99%E7%82%B9"><span class="toc-text">5.3 配置站点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%85%A8%E7%AB%99-HTTPS"><span class="toc-text">五、全站 HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">1.环境准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE-web%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E4%B8%A4%E5%8F%B0%EF%BC%89"><span class="toc-text">2.配置 web服务器（两台）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E9%85%8D%E7%BD%AE-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">2.1 配置 Nginx 配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E5%90%8C%E6%AD%A5%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">2.2 同步配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E9%85%8D%E7%BD%AE%E7%AB%99%E7%82%B9%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6"><span class="toc-text">2.3 配置站点目录文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E6%8E%A8%E9%80%81%E3%80%81%E4%B8%8A%E4%BC%A0%E8%AF%81%E4%B9%A6%E6%96%87%E4%BB%B6"><span class="toc-text">2.4 推送、上传证书文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-%E9%85%8D%E7%BD%AE%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E6%9C%BA%E5%99%A8-Nginx"><span class="toc-text">2.5 配置负载均衡机器 Nginx</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/k8s-prometheus-monitor-jvm/" title="K8S 中使用 Prometheus 监控 JVM"><img src="https://pic-cdn.wanhebin.com/2021/05/22/8d4737d4e9ccc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="K8S 中使用 Prometheus 监控 JVM"/></a><div class="content"><a class="title" href="/posts/k8s-prometheus-monitor-jvm/" title="K8S 中使用 Prometheus 监控 JVM">K8S 中使用 Prometheus 监控 JVM</a><time datetime="2021-05-22T08:00:00.000Z" title="发表于 2021-05-22 16:00:00">2021-05-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/centos7-custom-openssl-rpm-package/" title="CentOS 7 定制 OpenSSL  RPM包"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CentOS 7 定制 OpenSSL  RPM包"/></a><div class="content"><a class="title" href="/posts/centos7-custom-openssl-rpm-package/" title="CentOS 7 定制 OpenSSL  RPM包">CentOS 7 定制 OpenSSL  RPM包</a><time datetime="2021-05-08T09:00:00.000Z" title="发表于 2021-05-08 17:00:00">2021-05-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/mongodb-replica-set-promotes-secondary-to-primary/" title="MongoDB副本集把SECONDARY提升为PRIMARY"><img src="https://pic-cdn.wanhebin.com/2021/05/26/94e5c9ce88bf6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MongoDB副本集把SECONDARY提升为PRIMARY"/></a><div class="content"><a class="title" href="/posts/mongodb-replica-set-promotes-secondary-to-primary/" title="MongoDB副本集把SECONDARY提升为PRIMARY">MongoDB副本集把SECONDARY提升为PRIMARY</a><time datetime="2021-04-28T06:51:00.000Z" title="发表于 2021-04-28 14:51:00">2021-04-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/mysql-physicalbackup-xtrabackup-principle/" title="MySQL · 物理备份 · XtraBackup 备份原理"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL · 物理备份 · XtraBackup 备份原理"/></a><div class="content"><a class="title" href="/posts/mysql-physicalbackup-xtrabackup-principle/" title="MySQL · 物理备份 · XtraBackup 备份原理">MySQL · 物理备份 · XtraBackup 备份原理</a><time datetime="2021-04-23T12:16:00.000Z" title="发表于 2021-04-23 20:16:00">2021-04-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/php-install-pdo_sqlsrv-extension/" title="PHP 安装 pdo_sqlsrv 扩展(CentOS7)"><img src="https://pic-cdn.wanhebin.com/2021/05/26/0a34647144d41.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PHP 安装 pdo_sqlsrv 扩展(CentOS7)"/></a><div class="content"><a class="title" href="/posts/php-install-pdo_sqlsrv-extension/" title="PHP 安装 pdo_sqlsrv 扩展(CentOS7)">PHP 安装 pdo_sqlsrv 扩展(CentOS7)</a><time datetime="2021-03-22T10:56:00.000Z" title="发表于 2021-03-22 18:56:00">2021-03-22</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://pic-cdn.wanhebin.com/2021/05/26/1ebbee7131bbf.png')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Hebin Wan</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><span>皖ICP备 19005648号</span></a><br><a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34150202000248"><img class="icp-icon" src="/img/govimg.png"><span>皖公网安备 34150202000248号</span></a><p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为 Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org//"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用 Butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用 jsDelivr 为静态资源提供CDN加速"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站托管于 Github"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-2gbvgrofcc0f0e0c',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'twikoo-2gbvgrofcc0f0e0c',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'f40575dd28f4c6e5c4fd',
+      clientSecret: 'd5ec33b3591e0dfba8e04b80dc4a9fe1a991e978',
+      repo: 'hexo-blog-comments',
+      owner: 'wanhebin',
+      admin: ['wanhebin'],
+      id: '8c0ebef4c336248cdc48dbd8cd5d5b27',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Twikoo' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
