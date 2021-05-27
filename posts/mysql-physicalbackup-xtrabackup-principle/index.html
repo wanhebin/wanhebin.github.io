@@ -152,7 +152,7 @@
 <p>本文会介绍下备份工具的工作原理，希望对大家有所帮助。</p>
 <p>&nbsp;</p>
 <h2 id="工具集"><a href="#工具集" class="headerlink" title="工具集"></a>工具集</h2><p>软件包安装完后一共有4个可执行文件，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">usr</span><br><span class="line">├── bin</span><br><span class="line">│   ├── innobackupex</span><br><span class="line">│   ├── xbcrypt</span><br><span class="line">│   ├── xbstream</span><br><span class="line">│   └── xtrabackup</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">usr</span><br><span class="line">├── bin</span><br><span class="line">│   ├── innobackupex</span><br><span class="line">│   ├── xbcrypt</span><br><span class="line">│   ├── xbstream</span><br><span class="line">│   └── xtrabackup</span><br></pre></td></tr></table></figure>
 
 <p>其中最主要的是 <code>innobackupex</code> 和 <code>xtrabackup</code>，前者是一个 perl 脚本，后者是 C/C++ 编译的二进制。</p>
 <p><code>xtrabackup</code> 是用来备份 InnoDB 表的，不能备份非 InnoDB 表，和 mysqld server 没有交互；<code>innobackupex</code> 脚本用来备份非 InnoDB 表，同时会调用 <code>xtrabackup</code> 命令来备份 InnoDB 表，还会和 mysqld server 发送命令进行交互，如加读锁（FTWRL）、获取位点（SHOW SLAVE STATUS）等。简单来说，<code>innobackupex</code> 在 <code>xtrabackup</code> 之上做了一层封装。</p>

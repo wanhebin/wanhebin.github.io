@@ -172,15 +172,15 @@
 <ul>
 <li>在mysql命令行中查看</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&quot;log_error&quot;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&quot;log_error&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>在bash命令行中使用mysqladmin查看</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># mysqladmin -uroot -p123 variables | grep -w &quot;log_error&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># mysqladmin -uroot -p123 variables | grep -w &quot;log_error&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="1-3-设置错误日志"><a href="#1-3-设置错误日志" class="headerlink" title="1.3 设置错误日志"></a>1.3 设置错误日志</h4><p>修改mysql的主配置文件<code>/etc/my.cnf</code>，在服务端中添加如下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line">log_error=/var/<span class="built_in">log</span>/mysql/mysql.err</span><br><span class="line"><span class="comment">#log_error=mysql.err   #默认在数据目录下</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line">log_error=/var/<span class="built_in">log</span>/mysql/mysql.err</span><br><span class="line"><span class="comment">#log_error=mysql.err   #默认在数据目录下</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>注意</strong>：</p>
@@ -190,17 +190,17 @@
 </ul>
 </blockquote>
 <h3 id="2-查询日志"><a href="#2-查询日志" class="headerlink" title="2.查询日志"></a>2.查询日志</h3><p>记录mysql中所有执行成功的SQL语句信息（除了慢查询日志中记录的查询信息），会增大服务器的压力。所以一般不开启查询日志。</p>
-<h4 id="2-1-查看方式"><a href="#2-1-查看方式" class="headerlink" title="2.1 查看方式"></a>2.1 查看方式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&quot;%general_log%&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="2-1-查看方式"><a href="#2-1-查看方式" class="headerlink" title="2.1 查看方式"></a>2.1 查看方式</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&quot;%general_log%&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-2-开启方式（默认关闭）"><a href="#2-2-开启方式（默认关闭）" class="headerlink" title="2.2 开启方式（默认关闭）"></a>2.2 开启方式（默认关闭）</h4><ul>
 <li>临时开启</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="built_in">set</span> global general_log=on;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; <span class="built_in">set</span> global general_log=on;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>永久开启</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line">general_log=ON</span><br><span class="line">general_log_file=/var/<span class="built_in">log</span>/mysql/mysql.log</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line">general_log=ON</span><br><span class="line">general_log_file=/var/<span class="built_in">log</span>/mysql/mysql.log</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>注意：</strong></p>
@@ -213,10 +213,10 @@
 <li>将mysql服务器中影响数据库性能的相关SQL语句记录到日志文件</li>
 <li>通过对这些特殊的SQL语句分析，改进以达到提高数据库性能的目的</li>
 </ul>
-<h4 id="3-2-查看方式"><a href="#3-2-查看方式" class="headerlink" title="3.2 查看方式"></a>3.2 查看方式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&quot;%slow_query_log%&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-查看方式"><a href="#3-2-查看方式" class="headerlink" title="3.2 查看方式"></a>3.2 查看方式</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&quot;%slow_query_log%&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <h4 id="3-3-开启方式（默认关闭）"><a href="#3-3-开启方式（默认关闭）" class="headerlink" title="3.3 开启方式（默认关闭）"></a>3.3 开启方式（默认关闭）</h4><p>修改mysql的主配置文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line"><span class="comment">#指定是否开启慢查询日志</span></span><br><span class="line">slow_query_log=ON</span><br><span class="line"><span class="comment">#指定慢日志文件存放位置（默认在data）</span></span><br><span class="line">slow_query_log_file=/var/<span class="built_in">log</span>/mysql/slow.log</span><br><span class="line"><span class="comment">#设定慢查询的阀值(默认10s)</span></span><br><span class="line">long_query_time=5</span><br><span class="line"><span class="comment">#不使用索引的慢查询日志是否记录到索引</span></span><br><span class="line">log_queries_not_using_indexes</span><br><span class="line"><span class="comment">#查询检查返回少于该参数指定行的SQL不被记录到慢查询日志</span></span><br><span class="line">min_examined_row_limit=100 </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line"><span class="comment">#指定是否开启慢查询日志</span></span><br><span class="line">slow_query_log=ON</span><br><span class="line"><span class="comment">#指定慢日志文件存放位置（默认在data）</span></span><br><span class="line">slow_query_log_file=/var/<span class="built_in">log</span>/mysql/slow.log</span><br><span class="line"><span class="comment">#设定慢查询的阀值(默认10s)</span></span><br><span class="line">long_query_time=5</span><br><span class="line"><span class="comment">#不使用索引的慢查询日志是否记录到索引</span></span><br><span class="line">log_queries_not_using_indexes</span><br><span class="line"><span class="comment">#查询检查返回少于该参数指定行的SQL不被记录到慢查询日志</span></span><br><span class="line">min_examined_row_limit=100 </span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>注意</strong>：</p>
@@ -229,18 +229,18 @@
 <h4 id="3-4-模拟慢查询"><a href="#3-4-模拟慢查询" class="headerlink" title="3.4 模拟慢查询"></a>3.4 模拟慢查询</h4><ul>
 <li>进入到一个库并创建一个新表</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use world</span><br><span class="line">mysql&gt; create table tb01 select * from city;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; use world</span><br><span class="line">mysql&gt; create table tb01 select * from city;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>将tb01表中的数据插入到tb01中</li>
 </ul>
 <p>多执行几次这个insert语句，直到看见查询时间超过我们设置5s即可。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; insert into tb01 select * from tb01;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; insert into tb01 select * from tb01;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>使用<code>mysqldumpslow</code>命令分析慢查询日志</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># mysqldumpslow -s -c -t 10 /var/log/mysql/slow.log</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># mysqldumpslow -s -c -t 10 /var/log/mysql/slow.log</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>参数说明：</strong></p>
@@ -259,7 +259,7 @@
 <ul>
 <li>查看statement模式的binlog文件</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog mysql-bin.000002</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog mysql-bin.000002</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>优缺点</li>
@@ -271,12 +271,12 @@
 <ul>
 <li>修改binlog为ROW模式</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 data]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line">binlog_format=row</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 data]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line">binlog_format=row</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>查看ROW模式下的binlog</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog --base64-output=decode-rows -vvv mysql-bin.000002</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog --base64-output=decode-rows -vvv mysql-bin.000002</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>优缺点</li>
@@ -290,7 +290,7 @@
 <h4 id="4-3-二进制日志的管理"><a href="#4-3-二进制日志的管理" class="headerlink" title="4.3 二进制日志的管理"></a>4.3 二进制日志的管理</h4><ul>
 <li><strong>开启二进制日志</strong></li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line">log_bin=mysql-bin</span><br><span class="line">server_id=1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">[mysqld]</span><br><span class="line">log_bin=mysql-bin</span><br><span class="line">server_id=1</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>注意</strong>:</p>
@@ -301,22 +301,22 @@
 <ul>
 <li>物理查看</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># ll  /usr/local/mysql/data/mysql-bin.*</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db01 ~]<span class="comment"># ll  /usr/local/mysql/data/mysql-bin.*</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>命令行查看</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show binary logs;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; show binary logs;</span><br></pre></td></tr></table></figure></li>
 <li><p><strong>刷新binlog</strong></p>
 <ul>
 <li>刷新binlog，会生成一个新的binlog日志文件</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; flush logs;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; flush logs;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>查看binlog文件最大限制。</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&quot;%max_binlog_size%&quot;</span>;</span><br><span class="line">+-----------------+------------+</span><br><span class="line">| Variable_name   | Value      |</span><br><span class="line">+-----------------+------------+</span><br><span class="line">| max_binlog_size | 1073741824 |</span><br><span class="line">+-----------------+------------+</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&quot;%max_binlog_size%&quot;</span>;</span><br><span class="line">+-----------------+------------+</span><br><span class="line">| Variable_name   | Value      |</span><br><span class="line">+-----------------+------------+</span><br><span class="line">| max_binlog_size | 1073741824 |</span><br><span class="line">+-----------------+------------+</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>注意</strong>：</p>
@@ -328,22 +328,22 @@
 <li>删除指定天数前的binlog</li>
 </ul>
 <p>需要在mysql配置文件中加入如下参数</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expire_logs_days=7</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">expire_logs_days=7</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>保留几天的binlog</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; PURGE BINARY LOGS BEFORE NOW() - INTERVAL 3 day;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; PURGE BINARY LOGS BEFORE NOW() - INTERVAL 3 day;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>删除指定binlog文件之前的所有binlog文件</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; PURGE BINARY LOGS TO <span class="string">&#x27;mysql-bin.000005&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; PURGE BINARY LOGS TO <span class="string">&#x27;mysql-bin.000005&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>重置binlog</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; reset master;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; reset master;</span><br></pre></td></tr></table></figure>
 
 <p><strong>二进制日志删除原则</strong>：在存储能力范围内，能多保留则多保留；基于上一次全备前的可以选择删除。</p>
 </li>
@@ -366,13 +366,13 @@
 <li><p><strong>查看binlog事件</strong></p>
 </li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show binlog events <span class="keyword">in</span> <span class="string">&#x27;mysql-bin.000001&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mysql&gt; show binlog events <span class="keyword">in</span> <span class="string">&#x27;mysql-bin.000001&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
 <h4 id="4-5-模拟二进制日志恢复数据"><a href="#4-5-模拟二进制日志恢复数据" class="headerlink" title="4.5 模拟二进制日志恢复数据"></a>4.5 模拟二进制日志恢复数据</h4><p>ROW模式下的二进制日志分析及数据恢复</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看当前所在binlog位置点</span></span><br><span class="line">mysql&gt; show master status;</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个binlog库</span></span><br><span class="line">mysql&gt; create database binlog;</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用binlog库</span></span><br><span class="line">mysql&gt; use binlog</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建binglog_table表</span></span><br><span class="line">mysql&gt; create table binlog_table1(id int);</span><br><span class="line"></span><br><span class="line"><span class="comment">#插入几条数据</span></span><br><span class="line">mysql&gt; insert into binlog_table1 values(1);</span><br><span class="line">mysql&gt; insert into binlog_table1 values(2);</span><br><span class="line">mysql&gt; insert into binlog_table1 values(3);</span><br><span class="line"></span><br><span class="line"><span class="comment">#删除id为1的行</span></span><br><span class="line">mysql&gt; delete from binlog_table1 <span class="built_in">where</span> id=1;</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改id=1为id=22</span></span><br><span class="line">mysql&gt; update binlog_table1 <span class="built_in">set</span> id=22 <span class="built_in">where</span> id=2;</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看数据</span></span><br><span class="line">mysql&gt; select * from binlog_table1;</span><br><span class="line"></span><br><span class="line"><span class="comment">#删表</span></span><br><span class="line">mysql&gt; drop table binlog_table1;</span><br><span class="line"></span><br><span class="line"><span class="comment">#删库</span></span><br><span class="line">mysql&gt; drop database binlog;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看当前所在binlog位置点</span></span><br><span class="line">mysql&gt; show master status;</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建一个binlog库</span></span><br><span class="line">mysql&gt; create database binlog;</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用binlog库</span></span><br><span class="line">mysql&gt; use binlog</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建binglog_table表</span></span><br><span class="line">mysql&gt; create table binlog_table1(id int);</span><br><span class="line"></span><br><span class="line"><span class="comment">#插入几条数据</span></span><br><span class="line">mysql&gt; insert into binlog_table1 values(1);</span><br><span class="line">mysql&gt; insert into binlog_table1 values(2);</span><br><span class="line">mysql&gt; insert into binlog_table1 values(3);</span><br><span class="line"></span><br><span class="line"><span class="comment">#删除id为1的行</span></span><br><span class="line">mysql&gt; delete from binlog_table1 <span class="built_in">where</span> id=1;</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改id=1为id=22</span></span><br><span class="line">mysql&gt; update binlog_table1 <span class="built_in">set</span> id=22 <span class="built_in">where</span> id=2;</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看数据</span></span><br><span class="line">mysql&gt; select * from binlog_table1;</span><br><span class="line"></span><br><span class="line"><span class="comment">#删表</span></span><br><span class="line">mysql&gt; drop table binlog_table1;</span><br><span class="line"></span><br><span class="line"><span class="comment">#删库</span></span><br><span class="line">mysql&gt; drop database binlog;</span><br></pre></td></tr></table></figure>
 
 <p>恢复数据到delete之前</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看binlog事件</span></span><br><span class="line">mysql&gt; show binlog events <span class="keyword">in</span> <span class="string">&#x27;mysql-bin.00001&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用mysqlbinlog来查看</span></span><br><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog /usr/local/mysql/data/mysql-bin.000001</span></span><br><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog /usr/local/mysql/data/mysql-bin.000001 | grep -v SET</span></span><br><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog --base64-output=decode-rows -vvv mysql-bin.000001</span></span><br><span class="line"><span class="comment">### UPDATE `binlog`.`binlog_table`</span></span><br><span class="line"><span class="comment">### WHERE</span></span><br><span class="line"><span class="comment">###   @1=2 /* INT meta=0 nullable=1 is_null=0 */</span></span><br><span class="line"><span class="comment">### SET</span></span><br><span class="line"><span class="comment">###   @1=22 /* INT meta=0 nullable=1 is_null=0 */</span></span><br><span class="line"><span class="comment">#分析</span></span><br><span class="line">update binlog.binlog_table</span><br><span class="line"><span class="built_in">set</span></span><br><span class="line">@1=22 ---------&gt;@1表示binlog_table中的第一列,集合表结构就是id=22</span><br><span class="line"><span class="built_in">where</span></span><br><span class="line">@1=2  ---------&gt;@1表示binlog_table中的第一列,集合表结构就是id=2</span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">update binlog.binlog_table <span class="built_in">set</span> id=22 <span class="built_in">where</span> id=2;</span><br><span class="line"></span><br><span class="line"><span class="comment">#截取二进制日志</span></span><br><span class="line">查看二进制日志后，发现delete语句开始位置是941</span><br><span class="line">[root@db01 ~]<span class="comment"># mysqlbinlog --start-position=120 --stop-position=941 /usr/local/mysql/data/mysql-bin.000001 &gt; /tmp/binlog.sql</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#临时关闭binlog</span></span><br><span class="line">mysql&gt; <span class="built_in">set</span> sql_log_bin=0;</span><br><span class="line"></span><br><span class="line"><span class="comment">#执行sql文件</span></span><br><span class="line">mysql&gt; <span class="built_in">source</span> /tmp/binlog.sql</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看删除的库</span></span><br><span class="line">mysql&gt; show databases;</span><br><span class="line"></span><br><span class="line"><span class="comment">#进binlog库</span></span><br><span class="line">mysql&gt; use binlog</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看删除的表</span></span><br><span class="line">mysql&gt; show tables;</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看表中内容</span></span><br><span class="line">mysql&gt; select * from binlog_table;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看binlog事件</span></span><br><span class="line">mysql&gt; show binlog events <span class="keyword">in</span> <span class="string">&#x27;mysql-bin.00001&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用mysqlbinlog来查看</span></span><br><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog /usr/local/mysql/data/mysql-bin.000001</span></span><br><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog /usr/local/mysql/data/mysql-bin.000001 | grep -v SET</span></span><br><span class="line">[root@db01 data]<span class="comment"># mysqlbinlog --base64-output=decode-rows -vvv mysql-bin.000001</span></span><br><span class="line"><span class="comment">### UPDATE `binlog`.`binlog_table`</span></span><br><span class="line"><span class="comment">### WHERE</span></span><br><span class="line"><span class="comment">###   @1=2 /* INT meta=0 nullable=1 is_null=0 */</span></span><br><span class="line"><span class="comment">### SET</span></span><br><span class="line"><span class="comment">###   @1=22 /* INT meta=0 nullable=1 is_null=0 */</span></span><br><span class="line"><span class="comment">#分析</span></span><br><span class="line">update binlog.binlog_table</span><br><span class="line"><span class="built_in">set</span></span><br><span class="line">@1=22 ---------&gt;@1表示binlog_table中的第一列,集合表结构就是id=22</span><br><span class="line"><span class="built_in">where</span></span><br><span class="line">@1=2  ---------&gt;@1表示binlog_table中的第一列,集合表结构就是id=2</span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">update binlog.binlog_table <span class="built_in">set</span> id=22 <span class="built_in">where</span> id=2;</span><br><span class="line"></span><br><span class="line"><span class="comment">#截取二进制日志</span></span><br><span class="line">查看二进制日志后，发现delete语句开始位置是941</span><br><span class="line">[root@db01 ~]<span class="comment"># mysqlbinlog --start-position=120 --stop-position=941 /usr/local/mysql/data/mysql-bin.000001 &gt; /tmp/binlog.sql</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#临时关闭binlog</span></span><br><span class="line">mysql&gt; <span class="built_in">set</span> sql_log_bin=0;</span><br><span class="line"></span><br><span class="line"><span class="comment">#执行sql文件</span></span><br><span class="line">mysql&gt; <span class="built_in">source</span> /tmp/binlog.sql</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看删除的库</span></span><br><span class="line">mysql&gt; show databases;</span><br><span class="line"></span><br><span class="line"><span class="comment">#进binlog库</span></span><br><span class="line">mysql&gt; use binlog</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看删除的表</span></span><br><span class="line">mysql&gt; show tables;</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看表中内容</span></span><br><span class="line">mysql&gt; select * from binlog_table;</span><br></pre></td></tr></table></figure>
 
 
 
