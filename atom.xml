@@ -479,18 +479,18 @@
   </entry>
   
   <entry>
-    <title>MySQL 用户及权限管理</title>
-    <link href="https://blog.wanhebin.com/posts/mysql-user-permission-management/"/>
-    <id>https://blog.wanhebin.com/posts/mysql-user-permission-management/</id>
-    <published>2020-06-09T09:14:00.000Z</published>
-    <updated>2020-06-27T09:27:00.000Z</updated>
+    <title>MySQL 表空间管理</title>
+    <link href="https://blog.wanhebin.com/posts/mysql-tablespace-management/"/>
+    <id>https://blog.wanhebin.com/posts/mysql-tablespace-management/</id>
+    <published>2020-06-21T06:26:00.000Z</published>
+    <updated>2021-01-06T08:15:00.000Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;1-mysql用户的定义&quot;&gt;&lt;a href=&quot;#1-mysql用户的定义&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h3 id=&quot;1-表空间概念&quot;&gt;&lt;a href=&quot;#1-表空间概念&quot; class=&quot;headerlink&quot; title=&quot;1.表空间概念&quot;&gt;&lt;/a&gt;1.表空间概念&lt;/h3&gt;&lt;p&gt;InnoDB 存储引擎可将所有数据存放于 &lt;code&gt;ibdata*&lt;/code&gt;</summary>
         
       
     
@@ -504,29 +504,27 @@
   </entry>
   
   <entry>
-    <title>PHP 无法连接 MySQL 问题</title>
-    <link href="https://blog.wanhebin.com/posts/php-cannot-connect-to-mysql-problem/"/>
-    <id>https://blog.wanhebin.com/posts/php-cannot-connect-to-mysql-problem/</id>
-    <published>2020-06-09T09:14:00.000Z</published>
-    <updated>2020-06-27T09:27:00.000Z</updated>
+    <title>MySQL 多种结构介绍</title>
+    <link href="https://blog.wanhebin.com/posts/introduction-to-mysql-multiple-structures/"/>
+    <id>https://blog.wanhebin.com/posts/introduction-to-mysql-multiple-structures/</id>
+    <published>2020-06-10T16:03:00.000Z</published>
+    <updated>2020-11-06T04:04:00.000Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h2 id=&quot;MySQL-体系结构&quot;&gt;&lt;a href=&quot;#MySQL-体系结构&quot; class=&quot;headerlink&quot; title=&quot;MySQL 体系结构&quot;&gt;&lt;/a&gt;MySQL 体系结构&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
         
       
     
     
     
-    <category term="PHP" scheme="https://blog.wanhebin.com/categories/PHP/"/>
+    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
     
     
     <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
-    
-    <category term="PHP" scheme="https://blog.wanhebin.com/tags/PHP/"/>
     
   </entry>
   
