@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SSL/TLS 握手：详细过程及其工作原理 | HEBIN-技术栈</title><meta name="keywords" content="SSL,TLS"><meta name="author" content="Hebin Wan"><meta name="copyright" content="Hebin Wan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="SSL&#x2F;TLS 握手是在服务器和网站之间建立安全连接的过程。SSL 证书或数字证书因其对网络用户、网站所有者和发布者的安全性而变得流行。他们利用公钥密码术对客户端和网络服务器之间的数据传输进行编码。有各种类型的数字证书，但都服务于相同的过程，为客户端和网络所有者提供安全性。 Web 所有者经常使用SSL 证书来防止黑客入侵。要开始安全连接，客户端和服务器都首先进行 SSL 握手过程，包括身份验证、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSL&#x2F;TLS 握手：详细过程及其工作原理">
+<meta property="og:url" content="https://blog.wanhebin.com/posts/ssl-tls-handshake-how-does-it-work/index.html">
+<meta property="og:site_name" content="HEBIN-技术栈">
+<meta property="og:description" content="SSL&#x2F;TLS 握手是在服务器和网站之间建立安全连接的过程。SSL 证书或数字证书因其对网络用户、网站所有者和发布者的安全性而变得流行。他们利用公钥密码术对客户端和网络服务器之间的数据传输进行编码。有各种类型的数字证书，但都服务于相同的过程，为客户端和网络所有者提供安全性。 Web 所有者经常使用SSL 证书来防止黑客入侵。要开始安全连接，客户端和服务器都首先进行 SSL 握手过程，包括身份验证、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic-cdn.wanhebin.com/2021/06/05/1a74e88fb5529.jpg">
+<meta property="article:published_time" content="2021-06-05T09:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-05T09:00:00.000Z">
+<meta property="article:author" content="Hebin Wan">
+<meta property="article:tag" content="SSL">
+<meta property="article:tag" content="TLS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic-cdn.wanhebin.com/2021/06/05/1a74e88fb5529.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.wanhebin.com/posts/ssl-tls-handshake-how-does-it-work/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SSL/TLS 握手：详细过程及其工作原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-06-05 17:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="HEBIN-技术栈" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-cogs"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://docs.wanhebin.com/"><i class="fa-fw fas fa-book"></i><span> 文档</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://pic.wanhebin.com/"><i class="fa-fw fas fa-images"></i><span> 图床</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://download.wanhebin.com/"><i class="fa-fw fas fa-download"></i><span> 下载</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://sql.wanhebin.com/"><i class="fa-fw fas fa-database"></i><span> SQL优化</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/musicplayer/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/bizhi/"><i class="fa-fw fas fa-image"></i><span> 壁纸</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/games/Mikutap/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic-cdn.wanhebin.com/2021/06/05/1a74e88fb5529.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">HEBIN-技术栈</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-cogs"></i><span> 工具</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://docs.wanhebin.com/"><i class="fa-fw fas fa-book"></i><span> 文档</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://pic.wanhebin.com/"><i class="fa-fw fas fa-images"></i><span> 图床</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://download.wanhebin.com/"><i class="fa-fw fas fa-download"></i><span> 下载</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://sql.wanhebin.com/"><i class="fa-fw fas fa-database"></i><span> SQL优化</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/musicplayer/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/bizhi/"><i class="fa-fw fas fa-image"></i><span> 壁纸</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/games/Mikutap/"><i class="fa-fw fas fa-gamepad"></i><span> 游戏</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SSL/TLS 握手：详细过程及其工作原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-05T09:00:00.000Z" title="发表于 2021-06-05 17:00:00">2021-06-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-06-05T09:00:00.000Z" title="更新于 2021-06-05 17:00:00">2021-06-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/SSL/">SSL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SSL/TLS 握手：详细过程及其工作原理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="SSL-TLS-握手是在服务器和网站之间建立安全连接的过程。"><a href="#SSL-TLS-握手是在服务器和网站之间建立安全连接的过程。" class="headerlink" title="SSL/TLS 握手是在服务器和网站之间建立安全连接的过程。"></a>SSL/TLS 握手是在服务器和网站之间建立安全连接的过程。</h2><p>SSL 证书或数字证书因其对网络用户、网站所有者和发布者的安全性而变得流行。他们利用公钥密码术对客户端和网络服务器之间的数据传输进行编码。有各种类型的数字证书，但都服务于相同的过程，为客户端和网络所有者提供安全性。</p>
+<p>Web 所有者经常使用<a target="_blank" rel="noopener" href="https://www.ssl2buy.com/">SSL 证书</a>来防止黑客入侵。要开始安全连接，客户端和服务器都首先进行 SSL 握手过程，包括身份验证、密钥交换过程等。让我们先从 SSL/TLS 证书开始，了解它们的工作过程。然后我们将解释整个TLS握手过程。</p>
+<p>&nbsp;</p>
+<h2 id="什么是-SSL-TLS？"><a href="#什么是-SSL-TLS？" class="headerlink" title="什么是 SSL/TLS？"></a>什么是 SSL/TLS？</h2><p>SSL（安全套接字层）是一种标准安全协议，广泛用于保护 Internet 上的通信。SSL 使用<a target="_blank" rel="noopener" href="https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences">非对称加密</a>来保护信息不受攻击者的影响。SSL 证书由受信任的证书颁发机构颁发，以确保没有人（没有正确的编码/解码密钥）可以读取用户和服务器之间共享的数据。</p>
+<p>SSL 证书在两个密钥的帮助下进行加密和解密的过程。一个是任何试图与站点建立安全连接的人都可以使用的公钥。另一个密钥是由 Web 服务器隐藏的私钥，用于解密从客户端收到的消息。通过这种方式，在服务器和客户端的浏览器之间建立了安全的连接。</p>
+<p>如果您访问未安装 SSL 证书的站点，所有信息将以纯文本形式共享，这意味着任何人都可以拦截和读取您的私人数据。黑客可以使用该信息来实现其恶意目的。</p>
+<p>SSL 证书提供针对这些攻击的安全性。即使有人可以捕获数据，如果没有正确的加密/解密密钥，他/她也将无法读取数据。</p>
+<p>与 SSL 相比，<a target="_blank" rel="noopener" href="https://www.ssl2buy.com/wiki/ssl-vs-tls">TLS（传输层安全）</a>是高级版本。现在，几乎所有网站都使用 TLS 而不是 SSL，因为它提供了比 SSL 更好的保护。</p>
+<p>您可能会感到困惑，为什么我们仍然比 TLS 更普遍地使用 SSL。它就像一个品牌名称，已经在市场上流行起来。这意味着，如果您购买了 SSL 证书，则无需购买 TLS 许可证。</p>
+<p>&nbsp;</p>
+<h2 id="什么是-SSL-TLS-握手？"><a href="#什么是-SSL-TLS-握手？" class="headerlink" title="什么是 SSL/TLS 握手？"></a>什么是 SSL/TLS 握手？</h2><p>SSL/TLS 握手是在服务器和站点之间建立安全连接的过程。这是建立安全连接的最关键步骤之一。建立安全连接后，服务器和客户端都可以放心地相互通信。</p>
+<p>SSL 握手过程主要完成三件事：</p>
+<ol>
+<li>协商密码套件</li>
+<li>验证浏览器和服务器。</li>
+<li>交换密钥</li>
+</ol>
+<p>让我们一一解释它们。</p>
+<h3 id="协商密码诉讼"><a href="#协商密码诉讼" class="headerlink" title="协商密码诉讼"></a>协商密码诉讼</h3><p>密码套件是指专注于为网络提供安全性的方法的指令集。它提供了一组关于安全数据如何与 HTTPS、FTPS 和其他网络协议通信的指南。</p>
+<p>浏览器可能从规范角度来看有所不同，例如 Mozilla Firefox、Safari、Chrome 和 Microsoft Edge。同样，苹果macOS、微软Windows、Linux和Android iOS等常见操作系统在服务器端的功能支持也略有不同。当您引入自定义设置时，所有这些都变得更加复杂。</p>
+<p><img src="https://pic-cdn.wanhebin.com/img/ssl-tls/negotiating-cipher-suits.png" alt="谈判密码套装"></p>
+<p>因此，TLS 握手的第一阶段使用户和服务器能够共享他们的资源，以便可以识别他们共同支持的加密特性。</p>
+<p>一旦浏览器和服务器确定了特定的加密策略，他们就会利用它向用户提供 SSL 许可。这称为密码套件。</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>收到许可证后，客户端的浏览器会进行调查以确保证书是“真实的”。您不仅需要对信息进行编码以获得安全链接；您还必须确保将其提交给适当的网站/组织。但是他们实现它的方式取决于所使用的密码套件。</p>
+<p>所有值得信赖的 SSL 证书均由授权数字证书颁发机构证书颁发机构 (CA) 授予。这些公司需要遵循严格的颁发和证书协议，以便他们授予的许可证获得批准。这主要是为了确保您只能获得您拥有的域或企业的证书。通过这种方式，您可以假设一个 CA，例如公证人。签名表明许可证上的个人或组织是其声称的身份。</p>
+<p>客户端在整个 TLS 握手的身份验证过程中进行多次加密安全测试，以确保服务器提交的许可证是合法的。这涉及验证数字签名并确保值得信赖的 CA 已授予证书。</p>
+<p>此时用户还确认服务器拥有与证书相关的私钥。所有 SSL 许可证都使用包含公钥和私钥的密钥对。公钥用于数据加密，而私钥用于解密。这被称为“非对称加密”，因为使用单独的密钥来完成任务。</p>
+<p>客户端可以使用公钥对随机信息进行编码，以使用最流行的公钥密码系统 RSA 创建会话密钥。服务器只有在拥有私钥时才能解码和使用信息，以确保所有权证明。</p>
+<h3 id="密钥交换"><a href="#密钥交换" class="headerlink" title="密钥交换"></a>密钥交换</h3><p>此过程的最后一部分包括“会话密钥”的生成，这是最终将被利用的安全交互的关键。</p>
+<p>会话密钥是“对称的”，这意味着编码和解码使用相同的密钥。这些密钥在实现有效加密方面比非对称密钥更有效，因此非常适合在 HTTPS 链接上来回传输数据。</p>
+<p>根据选择的密码套件，创建密钥的准确方法会有所不同，<a target="_blank" rel="noopener" href="https://www.ssl2buy.com/wiki/diffie-hellman-rsa-dsa-ecc-and-ecdsa-asymmetric-key-algorithms">RSA 和 Diffie-Hellman</a>是两种流行的方法。</p>
+<p>每一方通知对方他们已经完成了所有相关工作以完成握手，然后双方进行校验以确保握手没有任何故意干扰或欺诈。</p>
+<p>在 HTTPS 链接中，这是必须发生的第一阶段，甚至在访问网站之前也是如此。这个 TLS 握手过程发生在很短的时间内。</p>
+<p>一旦 SSL 握手完成并且在您和服务器之间传输和获取的所有信息都是安全的，则编码和验证的 HTTPS 链接就会启动。</p>
+<p>&nbsp;</p>
+<h2 id="SSL-TLS-握手：循序渐进"><a href="#SSL-TLS-握手：循序渐进" class="headerlink" title="SSL/TLS 握手：循序渐进"></a>SSL/TLS 握手：循序渐进</h2><p>根据使用的密钥交换方法的种类和双方认可的密码套件，TLS 握手中的确切阶段可能会有所不同。</p>
+<p><img src="https://pic-cdn.wanhebin.com/img/ssl-tls/ssl-tls-handshake.png" alt="ssl - tls 握手"></p>
+<ol>
+<li>用户通过发送“Hello”消息开始握手过程。此消息包含用户支持的 TLS 类型和密码套件。它还包括一串任意字节，称为“客户端随机”。</li>
+<li>在回复中，服务器发送带有 SSL 证书的文本。该文本还包含为此过程选择的密码套件以及由服务器生成的称为“服务器随机”的随机字节串。</li>
+<li>用户的浏览器验证服务器提供的 SSL 证书和颁发它的证书颁发机构。这证明服务器就是它所说的那样，并且客户端正在与许可证持有者进行交互。</li>
+<li>客户端发送另一个使用 SSL 证书公钥编码的消息（premaster secret），该公钥只能由服务器持有的私钥解码。</li>
+<li>服务器使用其私钥读取消息。</li>
+<li>在此之后，使用客户端随机、服务器随机和预主密钥创建会话密钥。</li>
+<li>服务器和客户端都发送一个“完成”的消息，用会话密钥编码。</li>
+<li>SSL 握手成功完成，双方使用会话密钥继续安全通信。</li>
+</ol>
+<p>&nbsp;</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>TLS/SSL 握手是用于保护 Internet 通信的基本过程之一。它在幕后悄然迅速发生，大多数人对此一无所知。但是如果没有它的成功实施，用户的数据和客户端的资源就有被黑客攻击的危险。SSL 握手过程取决于客户端和服务器选择正确的密码套件和 SSL/TLS 版本来启动该过程。阅读完整指南，如上所述，以清楚地了解 SSL/TLS 握手过程。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.ssl2buy.com/wiki/ssl-tls-handshake-how-does-it-work">SSL/TLS Handshake: Detailed Process and How does it Work</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Hebin Wan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.wanhebin.com/posts/ssl-tls-handshake-how-does-it-work/">https://blog.wanhebin.com/posts/ssl-tls-handshake-how-does-it-work/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.wanhebin.com" target="_blank">HEBIN-技术栈</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SSL/">SSL</a><a class="post-meta__tags" href="/tags/TLS/">TLS</a></div><div class="post_share"><div class="social-share" data-image="https://pic-cdn.wanhebin.com/2021/06/05/1a74e88fb5529.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpayqr.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpayqr.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipayqr.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipayqr.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/k8s-prometheus-monitor-jvm/"><img class="next-cover" src="https://pic-cdn.wanhebin.com/2021/05/22/8d4737d4e9ccc.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">K8S 中使用 Prometheus 监控 JVM</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/centos7-builds-private-ca/" title="CentOS 7 构建私有 CA"><img class="cover" src="https://pic-cdn.wanhebin.com/2021/05/28/0412572ac78ae.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-09</div><div class="title">CentOS 7 构建私有 CA</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Twikoo</span><span class="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Hebin Wan</div><div class="author-info__description">乐于分享IT技术的站点</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wanhebin"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:2412620343@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-TLS-%E6%8F%A1%E6%89%8B%E6%98%AF%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E7%BD%91%E7%AB%99%E4%B9%8B%E9%97%B4%E5%BB%BA%E7%AB%8B%E5%AE%89%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%82"><span class="toc-text">SSL&#x2F;TLS 握手是在服务器和网站之间建立安全连接的过程。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-SSL-TLS%EF%BC%9F"><span class="toc-text">什么是 SSL&#x2F;TLS？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-SSL-TLS-%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="toc-text">什么是 SSL&#x2F;TLS 握手？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E5%95%86%E5%AF%86%E7%A0%81%E8%AF%89%E8%AE%BC"><span class="toc-text">协商密码诉讼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2"><span class="toc-text">密钥交换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-TLS-%E6%8F%A1%E6%89%8B%EF%BC%9A%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B"><span class="toc-text">SSL&#x2F;TLS 握手：循序渐进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/ssl-tls-handshake-how-does-it-work/" title="SSL/TLS 握手：详细过程及其工作原理"><img src="https://pic-cdn.wanhebin.com/2021/06/05/1a74e88fb5529.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SSL/TLS 握手：详细过程及其工作原理"/></a><div class="content"><a class="title" href="/posts/ssl-tls-handshake-how-does-it-work/" title="SSL/TLS 握手：详细过程及其工作原理">SSL/TLS 握手：详细过程及其工作原理</a><time datetime="2021-06-05T09:00:00.000Z" title="发表于 2021-06-05 17:00:00">2021-06-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/k8s-prometheus-monitor-jvm/" title="K8S 中使用 Prometheus 监控 JVM"><img src="https://pic-cdn.wanhebin.com/2021/05/22/8d4737d4e9ccc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="K8S 中使用 Prometheus 监控 JVM"/></a><div class="content"><a class="title" href="/posts/k8s-prometheus-monitor-jvm/" title="K8S 中使用 Prometheus 监控 JVM">K8S 中使用 Prometheus 监控 JVM</a><time datetime="2021-05-22T08:00:00.000Z" title="发表于 2021-05-22 16:00:00">2021-05-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/centos7-custom-openssl-rpm-package/" title="CentOS 7 定制 OpenSSL  RPM包"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CentOS 7 定制 OpenSSL  RPM包"/></a><div class="content"><a class="title" href="/posts/centos7-custom-openssl-rpm-package/" title="CentOS 7 定制 OpenSSL  RPM包">CentOS 7 定制 OpenSSL  RPM包</a><time datetime="2021-05-08T09:00:00.000Z" title="发表于 2021-05-08 17:00:00">2021-05-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/mongodb-replica-set-promotes-secondary-to-primary/" title="MongoDB副本集把SECONDARY提升为PRIMARY"><img src="https://pic-cdn.wanhebin.com/2021/05/26/94e5c9ce88bf6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MongoDB副本集把SECONDARY提升为PRIMARY"/></a><div class="content"><a class="title" href="/posts/mongodb-replica-set-promotes-secondary-to-primary/" title="MongoDB副本集把SECONDARY提升为PRIMARY">MongoDB副本集把SECONDARY提升为PRIMARY</a><time datetime="2021-04-28T06:51:00.000Z" title="发表于 2021-04-28 14:51:00">2021-04-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/mysql-physicalbackup-xtrabackup-principle/" title="MySQL · 物理备份 · XtraBackup 备份原理"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL · 物理备份 · XtraBackup 备份原理"/></a><div class="content"><a class="title" href="/posts/mysql-physicalbackup-xtrabackup-principle/" title="MySQL · 物理备份 · XtraBackup 备份原理">MySQL · 物理备份 · XtraBackup 备份原理</a><time datetime="2021-04-23T12:16:00.000Z" title="发表于 2021-04-23 20:16:00">2021-04-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://pic-cdn.wanhebin.com/2021/06/05/1a74e88fb5529.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Hebin Wan</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><span>皖ICP备 19005648号</span></a><br><a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34150202000248"><img class="icp-icon" src="/img/govimg.png"><span>皖公网安备 34150202000248号</span></a><p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为 Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org//"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用 Butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用 jsDelivr 为静态资源提供CDN加速"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站托管于 Github"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-2gbvgrofcc0f0e0c',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'twikoo-2gbvgrofcc0f0e0c',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'f40575dd28f4c6e5c4fd',
+      clientSecret: 'd5ec33b3591e0dfba8e04b80dc4a9fe1a991e978',
+      repo: 'hexo-blog-comments',
+      owner: 'wanhebin',
+      admin: ['wanhebin'],
+      id: '07333dd3e3513b39b46163fb9bd1120c',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Twikoo' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

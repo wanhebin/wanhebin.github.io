@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>SSL/TLS 握手：详细过程及其工作原理</title>
+      <link href="posts/ssl-tls-handshake-how-does-it-work/"/>
+      <url>posts/ssl-tls-handshake-how-does-it-work/</url>
+      
+        <content type="html"><![CDATA[<h2 id="SSL-TLS-握手是在服务器和网站之间建立安全连接的过程。"><a href="#SSL-TLS-握手是在服务器和网站之间建立安全连接的过程。" class="headerlink" title="SSL/TLS 握手是在服务器和网站之间建立安全连接的过程。"></a>SSL/TLS 握手是在服务器和网站之间建立安全连接的过程。</h2><p>SSL 证书或数字证书因其对网络用户、网站所有者和发布者的安全性而变得流行。他们利用公钥密码术对客户端和网络服务器之间的数据传输进行编码。有各种类型的数字证书，但都服务于相同的过程，为客户端和网络所有者提供安全性。</p><p>Web 所有者经常使用<a href="https://www.ssl2buy.com/">SSL 证书</a>来防止黑客入侵。要开始安全连接，客户端和服务器都首先进行 SSL 握手过程，包括身份验证、密钥交换过程等。让我们先从 SSL/TLS 证书开始，了解它们的工作过程。然后我们将解释整个TLS握手过程。</p><p>&nbsp;</p><h2 id="什么是-SSL-TLS？"><a href="#什么是-SSL-TLS？" class="headerlink" title="什么是 SSL/TLS？"></a>什么是 SSL/TLS？</h2><p>SSL（安全套接字层）是一种标准安全协议，广泛用于保护 Internet 上的通信。SSL 使用<a href="https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences">非对称加密</a>来保护信息不受攻击者的影响。SSL 证书由受信任的证书颁发机构颁发，以确保没有人（没有正确的编码/解码密钥）可以读取用户和服务器之间共享的数据。</p><p>SSL 证书在两个密钥的帮助下进行加密和解密的过程。一个是任何试图与站点建立安全连接的人都可以使用的公钥。另一个密钥是由 Web 服务器隐藏的私钥，用于解密从客户端收到的消息。通过这种方式，在服务器和客户端的浏览器之间建立了安全的连接。</p><p>如果您访问未安装 SSL 证书的站点，所有信息将以纯文本形式共享，这意味着任何人都可以拦截和读取您的私人数据。黑客可以使用该信息来实现其恶意目的。</p><p>SSL 证书提供针对这些攻击的安全性。即使有人可以捕获数据，如果没有正确的加密/解密密钥，他/她也将无法读取数据。</p><p>与 SSL 相比，<a href="https://www.ssl2buy.com/wiki/ssl-vs-tls">TLS（传输层安全）</a>是高级版本。现在，几乎所有网站都使用 TLS 而不是 SSL，因为它提供了比 SSL 更好的保护。</p><p>您可能会感到困惑，为什么我们仍然比 TLS 更普遍地使用 SSL。它就像一个品牌名称，已经在市场上流行起来。这意味着，如果您购买了 SSL 证书，则无需购买 TLS 许可证。</p><p>&nbsp;</p><h2 id="什么是-SSL-TLS-握手？"><a href="#什么是-SSL-TLS-握手？" class="headerlink" title="什么是 SSL/TLS 握手？"></a>什么是 SSL/TLS 握手？</h2><p>SSL/TLS 握手是在服务器和站点之间建立安全连接的过程。这是建立安全连接的最关键步骤之一。建立安全连接后，服务器和客户端都可以放心地相互通信。</p><p>SSL 握手过程主要完成三件事：</p><ol><li>协商密码套件</li><li>验证浏览器和服务器。</li><li>交换密钥</li></ol><p>让我们一一解释它们。</p><h3 id="协商密码诉讼"><a href="#协商密码诉讼" class="headerlink" title="协商密码诉讼"></a>协商密码诉讼</h3><p>密码套件是指专注于为网络提供安全性的方法的指令集。它提供了一组关于安全数据如何与 HTTPS、FTPS 和其他网络协议通信的指南。</p><p>浏览器可能从规范角度来看有所不同，例如 Mozilla Firefox、Safari、Chrome 和 Microsoft Edge。同样，苹果macOS、微软Windows、Linux和Android iOS等常见操作系统在服务器端的功能支持也略有不同。当您引入自定义设置时，所有这些都变得更加复杂。</p><p><img src="https://pic-cdn.wanhebin.com/img/ssl-tls/negotiating-cipher-suits.png" alt="谈判密码套装"></p><p>因此，TLS 握手的第一阶段使用户和服务器能够共享他们的资源，以便可以识别他们共同支持的加密特性。</p><p>一旦浏览器和服务器确定了特定的加密策略，他们就会利用它向用户提供 SSL 许可。这称为密码套件。</p><h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>收到许可证后，客户端的浏览器会进行调查以确保证书是“真实的”。您不仅需要对信息进行编码以获得安全链接；您还必须确保将其提交给适当的网站/组织。但是他们实现它的方式取决于所使用的密码套件。</p><p>所有值得信赖的 SSL 证书均由授权数字证书颁发机构证书颁发机构 (CA) 授予。这些公司需要遵循严格的颁发和证书协议，以便他们授予的许可证获得批准。这主要是为了确保您只能获得您拥有的域或企业的证书。通过这种方式，您可以假设一个 CA，例如公证人。签名表明许可证上的个人或组织是其声称的身份。</p><p>客户端在整个 TLS 握手的身份验证过程中进行多次加密安全测试，以确保服务器提交的许可证是合法的。这涉及验证数字签名并确保值得信赖的 CA 已授予证书。</p><p>此时用户还确认服务器拥有与证书相关的私钥。所有 SSL 许可证都使用包含公钥和私钥的密钥对。公钥用于数据加密，而私钥用于解密。这被称为“非对称加密”，因为使用单独的密钥来完成任务。</p><p>客户端可以使用公钥对随机信息进行编码，以使用最流行的公钥密码系统 RSA 创建会话密钥。服务器只有在拥有私钥时才能解码和使用信息，以确保所有权证明。</p><h3 id="密钥交换"><a href="#密钥交换" class="headerlink" title="密钥交换"></a>密钥交换</h3><p>此过程的最后一部分包括“会话密钥”的生成，这是最终将被利用的安全交互的关键。</p><p>会话密钥是“对称的”，这意味着编码和解码使用相同的密钥。这些密钥在实现有效加密方面比非对称密钥更有效，因此非常适合在 HTTPS 链接上来回传输数据。</p><p>根据选择的密码套件，创建密钥的准确方法会有所不同，<a href="https://www.ssl2buy.com/wiki/diffie-hellman-rsa-dsa-ecc-and-ecdsa-asymmetric-key-algorithms">RSA 和 Diffie-Hellman</a>是两种流行的方法。</p><p>每一方通知对方他们已经完成了所有相关工作以完成握手，然后双方进行校验以确保握手没有任何故意干扰或欺诈。</p><p>在 HTTPS 链接中，这是必须发生的第一阶段，甚至在访问网站之前也是如此。这个 TLS 握手过程发生在很短的时间内。</p><p>一旦 SSL 握手完成并且在您和服务器之间传输和获取的所有信息都是安全的，则编码和验证的 HTTPS 链接就会启动。</p><p>&nbsp;</p><h2 id="SSL-TLS-握手：循序渐进"><a href="#SSL-TLS-握手：循序渐进" class="headerlink" title="SSL/TLS 握手：循序渐进"></a>SSL/TLS 握手：循序渐进</h2><p>根据使用的密钥交换方法的种类和双方认可的密码套件，TLS 握手中的确切阶段可能会有所不同。</p><p><img src="https://pic-cdn.wanhebin.com/img/ssl-tls/ssl-tls-handshake.png" alt="ssl - tls 握手"></p><ol><li>用户通过发送“Hello”消息开始握手过程。此消息包含用户支持的 TLS 类型和密码套件。它还包括一串任意字节，称为“客户端随机”。</li><li>在回复中，服务器发送带有 SSL 证书的文本。该文本还包含为此过程选择的密码套件以及由服务器生成的称为“服务器随机”的随机字节串。</li><li>用户的浏览器验证服务器提供的 SSL 证书和颁发它的证书颁发机构。这证明服务器就是它所说的那样，并且客户端正在与许可证持有者进行交互。</li><li>客户端发送另一个使用 SSL 证书公钥编码的消息（premaster secret），该公钥只能由服务器持有的私钥解码。</li><li>服务器使用其私钥读取消息。</li><li>在此之后，使用客户端随机、服务器随机和预主密钥创建会话密钥。</li><li>服务器和客户端都发送一个“完成”的消息，用会话密钥编码。</li><li>SSL 握手成功完成，双方使用会话密钥继续安全通信。</li></ol><p>&nbsp;</p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>TLS/SSL 握手是用于保护 Internet 通信的基本过程之一。它在幕后悄然迅速发生，大多数人对此一无所知。但是如果没有它的成功实施，用户的数据和客户端的资源就有被黑客攻击的危险。SSL 握手过程取决于客户端和服务器选择正确的密码套件和 SSL/TLS 版本来启动该过程。阅读完整指南，如上所述，以清楚地了解 SSL/TLS 握手过程。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a href="https://www.ssl2buy.com/wiki/ssl-tls-handshake-how-does-it-work">SSL/TLS Handshake: Detailed Process and How does it Work</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> SSL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SSL </tag>
+            
+            <tag> TLS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>K8S 中使用 Prometheus 监控 JVM</title>
       <link href="posts/k8s-prometheus-monitor-jvm/"/>
       <url>posts/k8s-prometheus-monitor-jvm/</url>
