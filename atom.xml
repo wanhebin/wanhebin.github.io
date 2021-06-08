@@ -272,6 +272,31 @@
   </entry>
   
   <entry>
+    <title>CentOS 7 配置 mailx 代理 163&amp;QQ 邮箱</title>
+    <link href="https://blog.wanhebin.com/posts/centos7-configure-mailx-proxy-163&amp;qq-mailbox/"/>
+    <id>https://blog.wanhebin.com/posts/centos7-configure-mailx-proxy-163&amp;qq-mailbox/</id>
+    <published>2020-10-08T07:00:00.000Z</published>
+    <updated>2021-02-24T12:55:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;网易-163-邮箱&quot;&gt;&lt;a href=&quot;#网易-163-邮箱&quot; class=&quot;headerlink&quot; title=&quot;网易 163 邮箱&quot;&gt;&lt;/a&gt;网易 163 邮箱&lt;/h2&gt;&lt;h3 id=&quot;一、安装服务软件&quot;&gt;&lt;a href=&quot;#一、安装服务软件&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="System" scheme="https://blog.wanhebin.com/categories/System/"/>
+    
+    
+    <category term="Mailx" scheme="https://blog.wanhebin.com/tags/Mailx/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MySQL 之 mysqldump 备份权限</title>
     <link href="https://blog.wanhebin.com/posts/mysql-mysqldump-backup-permissions/"/>
     <id>https://blog.wanhebin.com/posts/mysql-mysqldump-backup-permissions/</id>
@@ -493,31 +518,6 @@
         
     <summary type="html">&lt;h3 id=&quot;1-事务介绍&quot;&gt;&lt;a href=&quot;#1-事务介绍&quot; class=&quot;headerlink&quot; title=&quot;1.事务介绍&quot;&gt;&lt;/a&gt;1.事务介绍&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;p&gt;在 MySQL 中只有使用了 InnoDB</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL 表空间管理</title>
-    <link href="https://blog.wanhebin.com/posts/mysql-tablespace-management/"/>
-    <id>https://blog.wanhebin.com/posts/mysql-tablespace-management/</id>
-    <published>2020-06-21T06:26:00.000Z</published>
-    <updated>2021-01-06T08:15:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;1-表空间概念&quot;&gt;&lt;a href=&quot;#1-表空间概念&quot; class=&quot;headerlink&quot; title=&quot;1.表空间概念&quot;&gt;&lt;/a&gt;1.表空间概念&lt;/h3&gt;&lt;p&gt;InnoDB 存储引擎可将所有数据存放于 &lt;code&gt;ibdata*&lt;/code&gt;</summary>
         
       
     
