@@ -17,7 +17,7 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>K8S 中使用 Prometheus 监控 JVM 《二》</title>
+    <title>K8S 中使用 Prometheus 监控JVM (二)</title>
     <link href="https://blog.wanhebin.com/posts/k8s-prometheus-monitor-jvm-2/"/>
     <id>https://blog.wanhebin.com/posts/k8s-prometheus-monitor-jvm-2/</id>
     <published>2021-06-28T15:30:00.000Z</published>
@@ -71,7 +71,7 @@
   </entry>
   
   <entry>
-    <title>K8S 中使用 Prometheus 监控 JVM 《一》</title>
+    <title>K8S 中使用 Prometheus 监控JVM (一)</title>
     <link href="https://blog.wanhebin.com/posts/k8s-prometheus-monitor-jvm-1/"/>
     <id>https://blog.wanhebin.com/posts/k8s-prometheus-monitor-jvm-1/</id>
     <published>2021-05-22T08:00:00.000Z</published>
