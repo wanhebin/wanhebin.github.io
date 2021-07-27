@@ -72,8 +72,8 @@
   
   <entry>
     <title>K8S 中使用 Prometheus 监控JVM (一)</title>
-    <link href="https://blog.wanhebin.com/posts/k8s-prometheus-monitor-jvm-1/"/>
-    <id>https://blog.wanhebin.com/posts/k8s-prometheus-monitor-jvm-1/</id>
+    <link href="https://blog.wanhebin.com/posts/k8s-prometheus-monitor-jvm/"/>
+    <id>https://blog.wanhebin.com/posts/k8s-prometheus-monitor-jvm/</id>
     <published>2021-05-22T08:00:00.000Z</published>
     <updated>2021-05-22T08:00:00.000Z</updated>
     
