@@ -217,7 +217,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat&gt;&gt;/data/dockerdata/es660/etc/elasticsearch.yml&lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">cluster.name: es</span></span><br><span class="line"><span class="string">node.name: es-01</span></span><br><span class="line"><span class="string">bootstrap.memory_lock: true</span></span><br><span class="line"><span class="string">network.host: 0.0.0.0</span></span><br><span class="line"><span class="string">http.port: 9200</span></span><br><span class="line"><span class="string">discovery.type: single-node     # 启动单节点类型</span></span><br><span class="line"><span class="string">xpack.security.enabled: false    # 关闭x-pack认证</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>在本文，我针对ES开启了x-pack插件，所以需要替换原ES的x-pack-core目录文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ wget http://dld.wanhebin.com/package/elk/plugins/x-pack-6.6.0/x-pack-core.tar.gz</span><br><span class="line">$ tar xf x-pack-core.tar.gz -C /data/dockerdata/es660/plugins/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ wget http://download.wanhebin.com/package/elk/plugins/x-pack-6.6.0/x-pack-core.tar.gz</span><br><span class="line">$ tar xf x-pack-core.tar.gz -C /data/dockerdata/es660/plugins/</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><strong>Kibana所需文件</strong></li>
@@ -242,7 +242,7 @@
 <ul>
 <li><strong>导入liences</strong></li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ wget http://dld.wanhebin.com/package/elk/plugins/x-pack-6.6.0/license.json</span><br><span class="line">$ curl -XPUT -H <span class="string">&quot;Content-Type: application/json&quot;</span> <span class="string">&#x27;http://127.0.0.1:9200/_xpack/license&#x27;</span> -d @license.json</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ wget http://download.wanhebin.com/package/elk/plugins/x-pack-6.6.0/license.json</span><br><span class="line">$ curl -XPUT -H <span class="string">&quot;Content-Type: application/json&quot;</span> <span class="string">&#x27;http://127.0.0.1:9200/_xpack/license&#x27;</span> -d @license.json</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><strong>查看 license 授权</strong></li>
