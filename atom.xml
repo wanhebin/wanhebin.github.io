@@ -6,7 +6,7 @@
   <link href="https://blog.wanhebin.com/atom.xml" rel="self"/>
   
   <link href="https://blog.wanhebin.com/"/>
-  <updated>2021-06-28T15:30:00.000Z</updated>
+  <updated>2021-11-09T10:00:00.000Z</updated>
   <id>https://blog.wanhebin.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>VSFTPD 配置虚拟用户</title>
+    <link href="https://blog.wanhebin.com/posts/vsftpd-configuration-virtual-user/"/>
+    <id>https://blog.wanhebin.com/posts/vsftpd-configuration-virtual-user/</id>
+    <published>2021-11-09T10:00:00.000Z</published>
+    <updated>2021-11-09T10:00:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1-新建系统用户&quot;&gt;&lt;a href=&quot;#1-新建系统用户&quot; class=&quot;headerlink&quot; title=&quot;1. 新建系统用户&quot;&gt;&lt;/a&gt;1. 新建系统用户&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="VSFTPD" scheme="https://blog.wanhebin.com/categories/VSFTPD/"/>
+    
+    
+    <category term="VSFTPD" scheme="https://blog.wanhebin.com/tags/VSFTPD/"/>
+    
+  </entry>
   
   <entry>
     <title>K8S 中使用 Prometheus 监控JVM (二)</title>
@@ -503,31 +528,6 @@
     <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
     <category term="XtraBackup" scheme="https://blog.wanhebin.com/tags/XtraBackup/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL 日志管理</title>
-    <link href="https://blog.wanhebin.com/posts/mysql-log-management/"/>
-    <id>https://blog.wanhebin.com/posts/mysql-log-management/</id>
-    <published>2020-06-21T15:42:00.000Z</published>
-    <updated>2020-09-27T09:14:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、日志简介&quot;&gt;&lt;a href=&quot;#一、日志简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
   </entry>
   
