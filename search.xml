@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>CentOS 8.X 安装软件时报错 No available modular metadata for modular package</title>
+      <link href="posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/"/>
+      <url>posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/</url>
+      
+        <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>由于部署环境有诸多限制，只能在纯内网（无法跟公网互通）环境下安装软件，所以需要把软件包下载下来放在服务器本地进行安装。</p><p>系统版本为 CentOS 8.2，使用 <code>createrepo</code> 命令创建 repodata 后，在进行部分软件安装时，会出现 <code>Error: No available modular metadata for modular package</code> 报错，详情如下图：</p><p><img src="https://pic-cdn.wanhebin.com/2021/12/08/f39b46a6edbef.png" alt="centos8.x-dnf-install-error-no-modular-metadata.png"></p><h2 id="安装-modular-metadata-生成工具"><a href="#安装-modular-metadata-生成工具" class="headerlink" title="安装 modular metadata 生成工具"></a>安装 modular metadata 生成工具</h2><h3 id="安装相关依赖"><a href="#安装相关依赖" class="headerlink" title="安装相关依赖"></a>安装相关依赖</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ sudo dnf install gcc gcc-++ python3 python3-devel python3-createrepo_c python3-libdnf python3-libmodulemd libmodulemd</span><br></pre></td></tr></table></figure><h3 id="下载-modulemd-tools-源码包并安装"><a href="#下载-modulemd-tools-源码包并安装" class="headerlink" title="下载 modulemd-tools 源码包并安装"></a>下载 modulemd-tools 源码包并安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/rpm-software-management/modulemd-tools.git</span><br><span class="line">$ <span class="built_in">cd</span> modulemd-tools/repo2module/</span><br><span class="line">$ sudo python3 setup.py install --user</span><br></pre></td></tr></table></figure><h2 id="创建-repodata-和-modular-metadata"><a href="#创建-repodata-和-modular-metadata" class="headerlink" title="创建 repodata 和 modular metadata"></a>创建 repodata 和 modular metadata</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入本地 repo packages 目录</span></span><br><span class="line">$ sudo <span class="built_in">cd</span> /mnt/packages</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 repodata</span></span><br><span class="line">$ sudo createrepo_c .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成 modular metadata</span></span><br><span class="line">$ sudo /root/.<span class="built_in">local</span>/bin/repo2module -s stable ./</span><br><span class="line">$ sudo modifyrepo_c --mdtype=modules modules.yaml repodata/</span><br></pre></td></tr></table></figure><p><strong>参考文档</strong></p><ul><li><p><a href="https://github.com/rpm-software-management/modulemd-tools">https://github.com/rpm-software-management/modulemd-tools</a></p></li><li><p><a href="https://www.codeleading.com/article/28455311531/">https://www.codeleading.com/article/28455311531/</a></p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> CentOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CentOS </tag>
+            
+            <tag> dnf </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>K8S 中使用 Prometheus 监控JVM (二)</title>
       <link href="posts/k8s-prometheus-monitor-jvm-2/"/>
       <url>posts/k8s-prometheus-monitor-jvm-2/</url>

@@ -6,7 +6,7 @@
   <link href="https://blog.wanhebin.com/atom.xml" rel="self"/>
   
   <link href="https://blog.wanhebin.com/"/>
-  <updated>2021-06-28T15:30:00.000Z</updated>
+  <updated>2021-12-08T15:00:00.000Z</updated>
   <id>https://blog.wanhebin.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS 8.X 安装软件时报错 No available modular metadata for modular package</title>
+    <link href="https://blog.wanhebin.com/posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/"/>
+    <id>https://blog.wanhebin.com/posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/</id>
+    <published>2021-12-08T15:00:00.000Z</published>
+    <updated>2021-12-08T15:00:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="CentOS" scheme="https://blog.wanhebin.com/categories/CentOS/"/>
+    
+    
+    <category term="CentOS" scheme="https://blog.wanhebin.com/tags/CentOS/"/>
+    
+    <category term="dnf" scheme="https://blog.wanhebin.com/tags/dnf/"/>
+    
+  </entry>
   
   <entry>
     <title>K8S 中使用 Prometheus 监控JVM (二)</title>
@@ -503,31 +530,6 @@
     <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
     <category term="XtraBackup" scheme="https://blog.wanhebin.com/tags/XtraBackup/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MySQL 日志管理</title>
-    <link href="https://blog.wanhebin.com/posts/mysql-log-management/"/>
-    <id>https://blog.wanhebin.com/posts/mysql-log-management/</id>
-    <published>2020-06-21T15:42:00.000Z</published>
-    <updated>2020-09-27T09:14:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;一、日志简介&quot;&gt;&lt;a href=&quot;#一、日志简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="MySQL" scheme="https://blog.wanhebin.com/categories/MySQL/"/>
-    
-    
-    <category term="MySQL" scheme="https://blog.wanhebin.com/tags/MySQL/"/>
     
   </entry>
   
