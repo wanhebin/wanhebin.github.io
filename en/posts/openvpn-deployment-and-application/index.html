@@ -1,0 +1,442 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OpenVPN 部署与应用 | DevOps Technology Stack</title><meta name="keywords" content="OpenVPN"><meta name="author" content="Hebin Wan"><meta name="copyright" content="Hebin Wan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="OpenVPN介绍 VPN 虚拟专用网络(VPN)的功能是：在公用网络上建立专用网络专用网络，进行加密通讯。在企业网络中有广泛应用。VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问。VPN可通过服务器、硬件、软件等多种方式实现。 简单来说，就是提供企业之间或者个人与公司之间的安全数据传输的隧道    OpenVPN VPN直译就是虚拟专用通道，是提供给企业之间或者个人与公司之间安全数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenVPN 部署与应用">
+<meta property="og:url" content="https://blog.wanhebin.com/en/posts/openvpn-deployment-and-application/index.html">
+<meta property="og:site_name" content="DevOps Technology Stack">
+<meta property="og:description" content="OpenVPN介绍 VPN 虚拟专用网络(VPN)的功能是：在公用网络上建立专用网络专用网络，进行加密通讯。在企业网络中有广泛应用。VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问。VPN可通过服务器、硬件、软件等多种方式实现。 简单来说，就是提供企业之间或者个人与公司之间的安全数据传输的隧道    OpenVPN VPN直译就是虚拟专用通道，是提供给企业之间或者个人与公司之间安全数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2019-10-03T13:14:00.000Z">
+<meta property="article:modified_time" content="2019-11-01T09:28:00.000Z">
+<meta property="article:author" content="Hebin Wan">
+<meta property="article:tag" content="OpenVPN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><link rel="shortcut icon" href="/en/img/favicon.png"><link rel="canonical" href="https://blog.wanhebin.com/en/posts/openvpn-deployment-and-application/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/en/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/en/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OpenVPN 部署与应用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-11-01 17:28:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/en/atom.xml" title="DevOps Technology Stack" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/en/archives/"><div class="headline">Articles</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/en/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/en/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-compass"></i><span> Catalog</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/en/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li><li><a class="site-page child" href="/en/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/en/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-cogs"></i><span> Tools</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://docs.wanhebin.com/"><i class="fa-fw fas fa-book"></i><span> DOCS</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://pic.wanhebin.com/"><i class="fa-fw fas fa-images"></i><span> Beds</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://download.wanhebin.com/"><i class="fa-fw fas fa-download"></i><span> Download</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://sql.wanhebin.com/"><i class="fa-fw fas fa-database"></i><span> SOAR</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> Entertainment</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/musicplayer/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/bizhi/"><i class="fa-fw fas fa-image"></i><span> Wallpapers</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/games/Mikutap/"><i class="fa-fw fas fa-gamepad"></i><span> Games</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/en/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/en/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-globe"></i><span> English</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="http://blog.wanhebin.com/"><span> 中文 Chinese</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/en/">DevOps Technology Stack</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-compass"></i><span> Catalog</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/en/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li><li><a class="site-page child" href="/en/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/en/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-cogs"></i><span> Tools</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://docs.wanhebin.com/"><i class="fa-fw fas fa-book"></i><span> DOCS</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://pic.wanhebin.com/"><i class="fa-fw fas fa-images"></i><span> Beds</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://download.wanhebin.com/"><i class="fa-fw fas fa-download"></i><span> Download</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://sql.wanhebin.com/"><i class="fa-fw fas fa-database"></i><span> SOAR</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> Entertainment</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/musicplayer/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/bizhi/"><i class="fa-fw fas fa-image"></i><span> Wallpapers</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/games/Mikutap/"><i class="fa-fw fas fa-gamepad"></i><span> Games</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/en/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/en/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-globe"></i><span> English</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="http://blog.wanhebin.com/"><span> 中文 Chinese</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OpenVPN 部署与应用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2019-10-03T13:14:00.000Z" title="Created 2019-10-03 21:14:00">2019-10-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2019-11-01T09:28:00.000Z" title="Updated 2019-11-01 17:28:00">2019-11-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/en/categories/OpenVPN/">OpenVPN</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>10min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OpenVPN 部署与应用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="OpenVPN介绍"><a href="#OpenVPN介绍" class="headerlink" title="OpenVPN介绍"></a>OpenVPN介绍</h2><ul>
+<li><p>VPN</p>
+<p>虚拟专用网络(VPN)的功能是：在公用网络上建立专用网络专用网络，进行加密通讯。在企业网络中有广泛应用。VPN网关通过对数据包的加密和数据包目标地址的转换实现远程访问。VPN可通过服务器、硬件、软件等多种方式实现。</p>
+<p>简单来说，就是提供企业之间或者个人与公司之间的安全数据传输的隧道  </p>
+</li>
+<li><p>OpenVPN</p>
+<p>VPN直译就是虚拟专用通道，是提供给企业之间或者个人与公司之间<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/3166604">安全数据传输</a>的隧道，OpenVPN无疑是Linux下开源VPN的先锋，提供了良好的性能和友好的用户GUI。</p>
+<p>OpenVPN大量使用了OpenSSL加密库中的SSLv3/TLSv1协议函数库。</p>
+<p>OpenVPN 是一个基于 OpenSSL 库的应用层 VPN 实现。和传统 VPN 相比，它的优点是简单易用。</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id="OpenVPN应用场景"><a href="#OpenVPN应用场景" class="headerlink" title="OpenVPN应用场景"></a>OpenVPN应用场景</h2><ul>
+<li><p><strong>Peer-to-Peer VPN（点对点连接）</strong></p>
+<p>将Internet两台机器（公网地址）使用VPN连接起来，比如上海服务器和北京服务器之间的数据需要相互调用，但是数据有比较敏感，直接通过http公共传输，容易被窃取。如果拉一条专线成本又太高。那么我们可以通过VPN使用现有网络，将两台主机逻辑上捆绑在一个虚拟网络中，这样既保证了数据安全传输，同时又节省了成本。</p>
+</li>
+<li><p><strong>Site-to-Site VPN（站点到站点连接）</strong></p>
+<p>用于连接两个或者多个地域上不同的局域网LAN，每个LAN有一台OpenVPN服务器作为接入点，组成虚拟专用网络，使得不同LAN里面的主机和服务器都能够相互通讯（比如国内公司与海外分公司的连接）</p>
+</li>
+<li><p><strong>Remote Access VPN（远程访问）</strong></p>
+<p>应用于外网用户访问内部网络。在这个场景中远程访问者一般通过公网IP连接VPN服务，然后通过分配后的内网地址与内网网段进行通信。</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id="OpenVPN部署"><a href="#OpenVPN部署" class="headerlink" title="OpenVPN部署"></a>OpenVPN部署</h2><h3 id="环境规划"><a href="#环境规划" class="headerlink" title="环境规划"></a>环境规划</h3><table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>外网IP</th>
+<th>内网IP</th>
+<th>角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>openvpn</td>
+<td>10.0.0.61</td>
+<td>172.16.1.61</td>
+<td>OpenVPN服务端</td>
+</tr>
+<tr>
+<td>web-01</td>
+<td></td>
+<td>172.16.1.7</td>
+<td>内网主机</td>
+</tr>
+<tr>
+<td>web-02</td>
+<td></td>
+<td>172.16.1.8</td>
+<td>内网主机</td>
+</tr>
+<tr>
+<td></td>
+<td>10.0.0.1</td>
+<td></td>
+<td>OpenVPN客户端</td>
+</tr>
+</tbody></table>
+<h3 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h3><ul>
+<li><p>下载证书生成工具 <code>easy-rsa</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install easy-rsa</span><br></pre></td></tr></table></figure></li>
+<li><p>创建证书环境目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p /opt/easy-rsa</span><br><span class="line">cp -a /usr/share/easy-rsa/3.0.7/* /opt/easy-rsa/</span><br><span class="line">cp -a /usr/share/doc/easy-rsa-3.0.7/vars.example /opt/easy-rsa/vars</span><br></pre></td></tr></table></figure></li>
+<li><p>生成秘钥前，准备 <code>vars</code> 文件</p>
+<p>修改文件 <code>/opt/easy-rsa/vars</code> 中的如下配置（要取消注释）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">set_var EASYRSA_DN      <span class="string">&quot;cn_only&quot;</span></span><br><span class="line">set_var EASYRSA_REQ_COUNTRY     <span class="string">&quot;CN&quot;</span></span><br><span class="line">set_var EASYRSA_REQ_PROVINCE    <span class="string">&quot;Shanghai&quot;</span></span><br><span class="line">set_var EASYRSA_REQ_CITY        <span class="string">&quot;Shanghai&quot;</span></span><br><span class="line">set_var EASYRSA_REQ_ORG 		<span class="string">&quot;whb&quot;</span></span><br><span class="line">set_var EASYRSA_REQ_EMAIL       <span class="string">&quot;whb@qq.com&quot;</span></span><br><span class="line">set_var EASYRSA_NS_SUPPORT      <span class="string">&quot;yes&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>初始化</p>
+<p>在当前目录下创建 <code>pki</code> 目录，用于存储证书</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/easy-rsa/</span><br><span class="line">/opt/easy-rsa/easyrsa init-pki</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic-cdn.wanhebin.com/img/openvpn/openvpn-1.png" alt="openvpn-1.png"></p>
+</li>
+<li><p>创建根证书</p>
+<p>根证书用于ca对之后生成的server和client证书签名时使用。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/easy-rsa/easyrsa build-ca</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic-cdn.wanhebin.com/img/openvpn/openvpn-2.png" alt="openvpn-2.png"></p>
+</li>
+<li><p>创建server端证书和私钥文件</p>
+<p>nopass表示不加密私钥文件，生成过程中直接回车默认</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/easy-rsa/easyrsa gen-req server nopass</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic-cdn.wanhebin.com/img/openvpn/openvpn-3.png" alt="openvpn-3.png"></p>
+</li>
+<li><p>给server证书签名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/easy-rsa/easyrsa sign server server</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic-cdn.wanhebin.com/img/openvpn/openvpn-4.png" alt="openvpn-4.png"></p>
+</li>
+<li><p>创建Diffie-Hellman文件，秘钥交换时的Diffie-Hellman算法</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/easy-rsa/easyrsa gen-dh</span><br></pre></td></tr></table></figure></li>
+<li><p>创建server端证书和私钥文件</p>
+<p>nopass表示不加密私钥文件，生成过程中直接回车默认</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/easy-rsa/easyrsa gen-req client nopass</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic-cdn.wanhebin.com/img/openvpn/openvpn-5.png" alt="openvpn-5.png"></p>
+</li>
+<li><p>给client端证书签名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/easy-rsa/easyrsa sign client client</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic-cdn.wanhebin.com/img/openvpn/openvpn-6.png" alt="openvpn-6.png"></p>
+</li>
+</ul>
+<h3 id="OpenVPN-服务端部署"><a href="#OpenVPN-服务端部署" class="headerlink" title="OpenVPN 服务端部署"></a>OpenVPN 服务端部署</h3><ul>
+<li><p>安装 openvpn 软件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">  yum -y install openvpn </span><br><span class="line"></span><br><span class="line">- 修改配置文件</span><br><span class="line"></span><br><span class="line">  自行创建配置文件 `/etc/openvpn/server.conf `，并加入如下配置</span><br><span class="line"></span><br><span class="line">  ```bash</span><br><span class="line">  [root@openvpn ~]<span class="comment"># cat /etc/openvpn/server.conf</span></span><br><span class="line">  port 1194 <span class="comment">#端口</span></span><br><span class="line">  proto udp <span class="comment">#协议</span></span><br><span class="line">  dev tun <span class="comment">#采用路由隧道模式tun</span></span><br><span class="line">  ca ca.crt <span class="comment">#ca证书文件位置</span></span><br><span class="line">  cert server.crt <span class="comment">#服务端公钥名称</span></span><br><span class="line">  key server.key <span class="comment">#服务端私钥名称</span></span><br><span class="line">  dh dh.pem <span class="comment">#交换证书</span></span><br><span class="line">  server 10.8.0.0 255.255.255.0 <span class="comment">#给客户端分配地址池，注意：不能和VPN服务器内网网段有相同</span></span><br><span class="line">  push <span class="string">&quot;route 172.16.1.0 255.255.255.0&quot;</span> <span class="comment">#允许客户端访问内网172.16.1.0网段</span></span><br><span class="line">  ifconfig-pool-persist ipp.txt <span class="comment">#地址池记录文件位置</span></span><br><span class="line">  keepalive 10 120 <span class="comment">#存活时间，10秒ping一次,120 如未收到响应则视为断线</span></span><br><span class="line">  max-clients 100 <span class="comment">#最多允许100个客户端连接</span></span><br><span class="line">  status openvpn-status.log <span class="comment">#日志记录位置</span></span><br><span class="line">  verb 3 <span class="comment">#openvpn版本</span></span><br><span class="line">  client-to-client <span class="comment">#客户端与客户端之间支持通信</span></span><br><span class="line">  <span class="built_in">log</span> /var/<span class="built_in">log</span>/openvpn.log <span class="comment">#openvpn日志记录位置</span></span><br><span class="line">  persist-key <span class="comment">#通过keepalive检测超时后，重新启动VPN，不重新读取keys，保留第一次使用的keys。</span></span><br><span class="line">  persist-tun <span class="comment">#检测超时后，重新启动VPN，一直保持tun是linkup的。否则网络会先linkdown然后再linkup</span></span><br><span class="line">  duplicate-cn</span><br></pre></td></tr></table></figure></li>
+<li><p>拷贝证书到 openvpn 主配置文件目录下</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cp -a /opt/easy-rsa/pki/ca.crt /etc/openvpn/</span><br><span class="line">cp -a /opt/easy-rsa/pki/issued/server.crt /etc/openvpn/</span><br><span class="line">cp -a /opt/easy-rsa/pki/private/server.key /etc/openvpn/</span><br><span class="line">cp -a /opt/easy-rsa/pki/dh.pem /etc/openvpn/</span><br></pre></td></tr></table></figure></li>
+<li><p>启动 openvpn</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl -f <span class="built_in">enable</span> openvpn@server.service</span><br><span class="line">systemctl start openvpn@server.service</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="OpenVPN-客户端部署"><a href="#OpenVPN-客户端部署" class="headerlink" title="OpenVPN 客户端部署"></a>OpenVPN 客户端部署</h3><ul>
+<li><p>安装 OpenVPN 客户端软件</p>
+<p>这里是在windows环境下部署 OpenVPN 的客户端的，首先需要下载安装 OpenVPN 客户端软件</p>
+</li>
+<li><p>配置客户端</p>
+<p>拷贝服务端生成的证书到OpenVPN安装目录的 <code>config</code> 目录下</p>
+<p>分别拷贝以下几个文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/opt/easy-rsa/pki/ca.crt </span><br><span class="line">/opt/easy-rsa/pki/issued/client.crt</span><br><span class="line">/opt/easy-rsa/pki/private/client.key</span><br></pre></td></tr></table></figure></li>
+<li><p>编写客户端配置文件</p>
+<p>在 OpenVPN 安装目录的 <code>config</code> 目录下，新建一个 <code>client.ovpn</code> 文件，在文件中添加如下配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">client <span class="comment">#指定当前VPN是客户端</span></span><br><span class="line">dev tun <span class="comment">#使用tun隧道传输协议</span></span><br><span class="line">proto udp <span class="comment">#使用udp协议传输数据</span></span><br><span class="line">remote 10.0.0.61 1194 <span class="comment">#openvpn服务器IP地址端口号</span></span><br><span class="line">resolv-retry infinite <span class="comment">#断线自动重新连接，在网络不稳定的情况下非常有用</span></span><br><span class="line">nobind <span class="comment">#不绑定本地特定的端口号</span></span><br><span class="line">ca ca.crt <span class="comment">#指定CA证书的文件路径</span></span><br><span class="line">cert client.crt <span class="comment">#指定当前客户端的证书文件路径</span></span><br><span class="line">key client.key <span class="comment">#指定当前客户端的私钥文件路径</span></span><br><span class="line">verb 3 <span class="comment">#指定日志文件的记录详细级别，可选0-9，等级越高日志内容越详细</span></span><br><span class="line">persist-key <span class="comment">#通过keepalive检测超时后，重新启动VPN，不重新读取keys，保留第一次使用的keys</span></span><br><span class="line">persist-tun <span class="comment">#检测超时后，重新启动VPN，一直保持tun是linkup的。否则网络会先linkdown然后再linkup</span></span><br></pre></td></tr></table></figure></li>
+<li><p>启动 openvpn 客户端软件</p>
+<p>双击安装好后的 openvpn 软件，然后右键点击连接。</p>
+<p>连接成功后，在托任务栏位置的 OpenVPN 图标会变绿色，则说明 OpenVPN 已经连接成功。</p>
+<p><img src="https://pic-cdn.wanhebin.com/img/openvpn/openvpn-7.png" alt="openvpn-7.png"></p>
+<p>OpenVPN会分配一个IP地址给客户端，客户端会使用该虚拟网络IP地址与服务端进行通信。</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id="OpenVPN-客户端访问内网"><a href="#OpenVPN-客户端访问内网" class="headerlink" title="OpenVPN 客户端访问内网"></a>OpenVPN 客户端访问内网</h2><h3 id="开启内核转发"><a href="#开启内核转发" class="headerlink" title="开启内核转发"></a>开启内核转发</h3><p>在 openvpn 服务端开启内核转发。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@openvpn ~]<span class="comment"># echo &quot;net.ipv4.ip_forward = 1&quot; &gt;&gt; /etc/sysctl.conf</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意：</strong></p>
+<p>无论用哪种方式访问内部网络，都必须开启内核转发。</p>
+</blockquote>
+<h3 id="添加路由规则方式访问内部网络"><a href="#添加路由规则方式访问内部网络" class="headerlink" title="添加路由规则方式访问内部网络"></a>添加路由规则方式访问内部网络</h3><p>在内网主机 web-01 上添加一条路由规则，让 web-01 有回到 openvpn 客户端的路由。如果不添加，那 web-01 只能接受到来自客户端的包，但是没法把响应的包传回去。</p>
+<p>弊端：如果有成白上千台主机时，每一台主机都要添加路由规则，这样任务量是比较大的。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web-01 ~]<span class="comment"># route add -net 10.8.0.0/24 gw 172.16.1.61</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="开启防火墙方式访问内部网络"><a href="#开启防火墙方式访问内部网络" class="headerlink" title="开启防火墙方式访问内部网络"></a>开启防火墙方式访问内部网络</h3><p>在服务端开启防火墙，放行 openvpn 服务，并且开启 <code>masquerade</code>。</p>
+<p><strong>优点：</strong>只需在OpenVPN服务端配置防火墙规则，内部网络主机无需配置。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl start firewalld</span><br><span class="line">firewall-cmd --add-masquerade --permanent</span><br><span class="line">firewall-cmd --add-service=openvpn --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;</p>
+<h2 id="双重验证登录"><a href="#双重验证登录" class="headerlink" title="双重验证登录"></a>双重验证登录</h2><p>使用 OpenVPN 秘钥和用户名密码双重身份验证登录。</p>
+<p>为什么需要用户名密码验证登录？</p>
+<p>我们已经使用了 CA 证书、交换秘钥这几种方式进行加密了，可以说已经很安全了，为什么还要需要用户名密码呢？</p>
+<p>首先安全还是很重要的，其次就是管理这些秘钥和证书还是比较麻烦的，如果用户量比较多，我们不可能为每个用户都创建一套加密，每个用户创建一个秘钥比较麻烦，但多人使用一个秘钥又不具有唯一性，比如说有用户不在需要 VPN 的时候，我们就只能吊销证书。但是如果多人使用一个秘钥的情况下，吊销证书了，其他的用户也登录不了。所以我们就需要秘钥加用户名和密码，这样就可以多个用户使用同一个证书，使用不同的用户名和密码。</p>
+<p>新用户加入的时候，只需要添加一个用户名和密码，如果有人不需要 VPN 时，直接删除用户名和密码就可以了。</p>
+<h3 id="修改-Server-端配置"><a href="#修改-Server-端配置" class="headerlink" title="修改 Server 端配置"></a>修改 Server 端配置</h3><ul>
+<li><p>修改配置文件</p>
+<p>在配置文件 <code>/etc/openvpn/server.conf</code> 中添加以下配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">script-security 3              <span class="comment">#允许使用自定义脚本</span></span><br><span class="line">auth-user-pass-verify /etc/openvpn/check.sh via-env</span><br><span class="line">username-as-common-name         <span class="comment">#用户密码登陆方式验证</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>如果加上 <code>client-cert-not-required</code> 则代表只使用用户名密码方式验证登录，如果不加，则代表需要证书和用户名密码双重验证登录！</p>
+</blockquote>
+<ul>
+<li><p>添加脚本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@openvpn ~]<span class="comment"># vim /etc/openvpn/check.sh</span></span><br><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"><span class="comment">###########################################################</span></span><br><span class="line">PASSFILE=<span class="string">&quot;/etc/openvpn/openvpnfile&quot;</span></span><br><span class="line">LOG_FILE=<span class="string">&quot;/var/log/openvpn-password.log&quot;</span></span><br><span class="line">TIME_STAMP=`date <span class="string">&quot;+%Y-%m-%d %T&quot;</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -r <span class="string">&quot;<span class="variable">$&#123;PASSFILE&#125;</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;TIME_STAMP&#125;</span>: Could not open password file \&quot;<span class="variable">$&#123;PASSFILE&#125;</span>\&quot; for reading.&quot;</span> &gt;&gt; <span class="variable">$&#123;LOG_FILE&#125;</span></span><br><span class="line">	<span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">CORRECT_PASSWORD=`awk <span class="string">&#x27;!/^;/&amp;&amp;!/^#/&amp;&amp;$1==&quot;&#x27;</span><span class="variable">$&#123;username&#125;</span><span class="string">&#x27;&quot;&#123;print $2;exit&#125;&#x27;</span> <span class="variable">$&#123;PASSFILE&#125;</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;CORRECT_PASSWORD&#125;</span>&quot;</span> = <span class="string">&quot;&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;TIME_STAMP&#125;</span>: User does not exist: username=\&quot;<span class="variable">$&#123;username&#125;</span>\&quot;, password=\&quot;<span class="variable">$&#123;password&#125;</span>\&quot;.&quot;</span> &gt;&gt; <span class="variable">$&#123;LOG_FILE&#125;</span></span><br><span class="line">	<span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$&#123;password&#125;</span>&quot;</span> = <span class="string">&quot;<span class="variable">$&#123;CORRECT_PASSWORD&#125;</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;TIME_STAMP&#125;</span>: Successful authentication: username=\&quot;<span class="variable">$&#123;username&#125;</span>\&quot;.&quot;</span> &gt;&gt; <span class="variable">$&#123;LOG_FILE&#125;</span></span><br><span class="line">	<span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;TIME_STAMP&#125;</span>: Incorrect password: username=\&quot;<span class="variable">$&#123;username&#125;</span>\&quot;, password=\&quot;<span class="variable">$&#123;password&#125;</span>\&quot;.&quot;</span> &gt;&gt; <span class="variable">$&#123;LOG_FILE&#125;</span></span><br><span class="line"><span class="built_in">exit</span> 1</span><br></pre></td></tr></table></figure>
+
+<p>给脚本添加执行权限</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod +x /etc/openvpn/check.sh </span><br></pre></td></tr></table></figure></li>
+<li><p>编写用户密码文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@openvpn ~]<span class="comment"># cat /etc/openvpn/openvpnfile</span></span><br><span class="line">whb	123456</span><br></pre></td></tr></table></figure></li>
+<li><p>重启 openvpn 服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart openvpn@server.service</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="修改客户端配置"><a href="#修改客户端配置" class="headerlink" title="修改客户端配置"></a>修改客户端配置</h3><p>在安装目录下 <code>config</code> 目录下的 <code>client.ovpn</code> 文件中添加如下配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">auth-user-pass</span><br></pre></td></tr></table></figure>
+
+<p>然后重启 openvpn 客户端软件。</p>
+<p>再次使用就会跳出用户登录窗口了</p>
+<p><img src="https://pic-cdn.wanhebin.com/img/openvpn/openvpn-8.png" alt="openvpn-8.png"></p>
+<p>输入用户名和密码后登录成功。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Hebin Wan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://blog.wanhebin.com/en/posts/openvpn-deployment-and-application/">https://blog.wanhebin.com/en/posts/openvpn-deployment-and-application/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/en/tags/OpenVPN/">OpenVPN</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> Donate</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/en/img/wechatpayqr.png" target="_blank"><img class="post-qr-code-img" src="/en/img/wechatpayqr.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/en/img/alipayqr.jpg" target="_blank"><img class="post-qr-code-img" src="/en/img/alipayqr.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/en/posts/vsftpd-configuration-virtual-user/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/en/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">VSFTPD 配置虚拟用户</div></div></a></div><div class="next-post pull-right"><a href="/en/posts/centos7-configure-ntp-server/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/en/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">CentOS 7 配置 NTP 时间同步服务器</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div><div id="comment-switch"><span class="first-comment">Twikoo</span><span class="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/en/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Hebin Wan</div><div class="author-info__description">DevOps Technology Sharing</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/en/archives/"><div class="headline">Articles</div><div class="length-num">36</div></a></div><div class="card-info-data-item is-center"><a href="/en/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a></div><div class="card-info-data-item is-center"><a href="/en/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wanhebin"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:2412620343@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/en/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenVPN%E4%BB%8B%E7%BB%8D"><span class="toc-text">OpenVPN介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenVPN%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">OpenVPN应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenVPN%E9%83%A8%E7%BD%B2"><span class="toc-text">OpenVPN部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%A7%84%E5%88%92"><span class="toc-text">环境规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6"><span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenVPN-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="toc-text">OpenVPN 服务端部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenVPN-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="toc-text">OpenVPN 客户端部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenVPN-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91"><span class="toc-text">OpenVPN 客户端访问内网</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E5%86%85%E6%A0%B8%E8%BD%AC%E5%8F%91"><span class="toc-text">开启内核转发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99%E6%96%B9%E5%BC%8F%E8%AE%BF%E9%97%AE%E5%86%85%E9%83%A8%E7%BD%91%E7%BB%9C"><span class="toc-text">添加路由规则方式访问内部网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99%E6%96%B9%E5%BC%8F%E8%AE%BF%E9%97%AE%E5%86%85%E9%83%A8%E7%BD%91%E7%BB%9C"><span class="toc-text">开启防火墙方式访问内部网络</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E9%87%8D%E9%AA%8C%E8%AF%81%E7%99%BB%E5%BD%95"><span class="toc-text">双重验证登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-Server-%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">修改 Server 端配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">修改客户端配置</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/en/posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/" title="CentOS 8.X installation software error No available modular metadata for modular package"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="CentOS 8.X installation software error No available modular metadata for modular package"/></a><div class="content"><a class="title" href="/en/posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/" title="CentOS 8.X installation software error No available modular metadata for modular package">CentOS 8.X installation software error No available modular metadata for modular package</a><time datetime="2021-12-08T15:00:00.000Z" title="Created 2021-12-08 23:00:00">2021-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/en/posts/k8s-prometheus-monitor-jvm-2/" title="K8S 中使用 Prometheus 监控JVM (二)"><img src="https://pic-cdn.wanhebin.com/2021/05/22/8d4737d4e9ccc.png" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="K8S 中使用 Prometheus 监控JVM (二)"/></a><div class="content"><a class="title" href="/en/posts/k8s-prometheus-monitor-jvm-2/" title="K8S 中使用 Prometheus 监控JVM (二)">K8S 中使用 Prometheus 监控JVM (二)</a><time datetime="2021-06-28T15:30:00.000Z" title="Created 2021-06-28 23:30:00">2021-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/en/posts/ssl-tls-handshake-how-does-it-work/" title="SSL/TLS 握手：详细过程及其工作原理"><img src="https://pic-cdn.wanhebin.com/2021/06/05/1a74e88fb5529.jpg" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="SSL/TLS 握手：详细过程及其工作原理"/></a><div class="content"><a class="title" href="/en/posts/ssl-tls-handshake-how-does-it-work/" title="SSL/TLS 握手：详细过程及其工作原理">SSL/TLS 握手：详细过程及其工作原理</a><time datetime="2021-06-05T09:00:00.000Z" title="Created 2021-06-05 17:00:00">2021-06-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/en/posts/k8s-prometheus-monitor-jvm/" title="K8S 中使用 Prometheus 监控JVM (一)"><img src="https://pic-cdn.wanhebin.com/2021/05/22/8d4737d4e9ccc.png" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="K8S 中使用 Prometheus 监控JVM (一)"/></a><div class="content"><a class="title" href="/en/posts/k8s-prometheus-monitor-jvm/" title="K8S 中使用 Prometheus 监控JVM (一)">K8S 中使用 Prometheus 监控JVM (一)</a><time datetime="2021-05-22T08:00:00.000Z" title="Created 2021-05-22 16:00:00">2021-05-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/en/posts/centos7-custom-openssl-rpm-package/" title="CentOS 7 定制 OpenSSL  RPM包"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="CentOS 7 定制 OpenSSL  RPM包"/></a><div class="content"><a class="title" href="/en/posts/centos7-custom-openssl-rpm-package/" title="CentOS 7 定制 OpenSSL  RPM包">CentOS 7 定制 OpenSSL  RPM包</a><time datetime="2021-05-08T09:00:00.000Z" title="Created 2021-05-08 17:00:00">2021-05-08</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Hebin Wan</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><span>皖ICP备 19005648号</span></a><br><a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34150202000248"><img class="icp-icon" src="/img/govimg.png"><span>皖公网安备 34150202000248号</span></a><p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为 Hexo"></a>&nbsp;<a target="_blank" href="https://github.com/jerryc127/hexo-theme-butterfly/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用 Butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用 jsDelivr 为静态资源提供CDN加速"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站托管于 Github"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="Increase font size"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="Decrease font size"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/en/js/utils.js"></script><script src="/en/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/en/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-2gbvgrofcc0f0e0c',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'twikoo-2gbvgrofcc0f0e0c',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo@1.4.11/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'f40575dd28f4c6e5c4fd',
+      clientSecret: 'd5ec33b3591e0dfba8e04b80dc4a9fe1a991e978',
+      repo: 'hexo-blog-comments',
+      owner: 'wanhebin',
+      admin: ['wanhebin'],
+      id: 'd7ded7cbcaea179c4ecc49a0eab721fc',
+      language: 'en',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Twikoo' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>DevOps Technology Stack</title>
+  <icon>https://blog.wanhebin.com/en/icon.png</icon>
+  
+  <link href="https://blog.wanhebin.com/en/atom.xml" rel="self"/>
+  
+  <link href="https://blog.wanhebin.com/en/"/>
+  <updated>2021-12-08T15:00:00.000Z</updated>
+  <id>https://blog.wanhebin.com/en/</id>
+  
+  <author>
+    <name>Hebin Wan</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS 8.X installation software error No available modular metadata for modular package</title>
+    <link href="https://blog.wanhebin.com/en/posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/"/>
+    <id>https://blog.wanhebin.com/en/posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/</id>
+    <published>2021-12-08T15:00:00.000Z</published>
+    <updated>2021-12-08T15:00:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Problem-Description&quot;&gt;&lt;a href=&quot;#Problem-Description&quot; class=&quot;headerlink&quot; title=&quot;Problem Description&quot;&gt;&lt;/a&gt;Problem</summary>
+        
+      
+    
+    
+    
+    <category term="CentOS" scheme="https://blog.wanhebin.com/en/categories/CentOS/"/>
+    
+    
+    <category term="CentOS" scheme="https://blog.wanhebin.com/en/tags/CentOS/"/>
+    
+    <category term="dnf" scheme="https://blog.wanhebin.com/en/tags/dnf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>K8S 中使用 Prometheus 监控JVM (二)</title>
+    <link href="https://blog.wanhebin.com/en/posts/k8s-prometheus-monitor-jvm-2/"/>
+    <id>https://blog.wanhebin.com/en/posts/k8s-prometheus-monitor-jvm-2/</id>
+    <published>2021-06-28T15:30:00.000Z</published>
+    <updated>2021-06-28T15:30:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;背景说明&quot;&gt;&lt;a href=&quot;#背景说明&quot; class=&quot;headerlink&quot; title=&quot;背景说明&quot;&gt;&lt;/a&gt;背景说明&lt;/h2&gt;&lt;p&gt;在上篇文章 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Prometheus" scheme="https://blog.wanhebin.com/en/categories/Prometheus/"/>
+    
+    
+    <category term="Prometheus" scheme="https://blog.wanhebin.com/en/tags/Prometheus/"/>
+    
+    <category term="Kubernetes" scheme="https://blog.wanhebin.com/en/tags/Kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSL/TLS 握手：详细过程及其工作原理</title>
+    <link href="https://blog.wanhebin.com/en/posts/ssl-tls-handshake-how-does-it-work/"/>
+    <id>https://blog.wanhebin.com/en/posts/ssl-tls-handshake-how-does-it-work/</id>
+    <published>2021-06-05T09:00:00.000Z</published>
+    <updated>2021-06-05T09:00:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;SSL-TLS-握手是在服务器和网站之间建立安全连接的过程。&quot;&gt;&lt;a href=&quot;#SSL-TLS-握手是在服务器和网站之间建立安全连接的过程。&quot; class=&quot;headerlink&quot; title=&quot;SSL/TLS</summary>
+        
+      
+    
+    
+    
+    <category term="SSL" scheme="https://blog.wanhebin.com/en/categories/SSL/"/>
+    
+    
+    <category term="SSL" scheme="https://blog.wanhebin.com/en/tags/SSL/"/>
+    
+    <category term="TLS" scheme="https://blog.wanhebin.com/en/tags/TLS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>K8S 中使用 Prometheus 监控JVM (一)</title>
+    <link href="https://blog.wanhebin.com/en/posts/k8s-prometheus-monitor-jvm/"/>
+    <id>https://blog.wanhebin.com/en/posts/k8s-prometheus-monitor-jvm/</id>
+    <published>2021-05-22T08:00:00.000Z</published>
+    <updated>2021-05-22T08:00:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;操作场景&quot;&gt;&lt;a href=&quot;#操作场景&quot; class=&quot;headerlink&quot; title=&quot;操作场景&quot;&gt;&lt;/a&gt;操作场景&lt;/h2&gt;&lt;p&gt;Prometheus 社区开发了 JMX Exporter 用于导出 JVM 的监控指标，以便使用 Prometheus</summary>
+        
+      
+    
+    
+    
+    <category term="Prometheus" scheme="https://blog.wanhebin.com/en/categories/Prometheus/"/>
+    
+    
+    <category term="Prometheus" scheme="https://blog.wanhebin.com/en/tags/Prometheus/"/>
+    
+    <category term="Kubernetes" scheme="https://blog.wanhebin.com/en/tags/Kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS 7 定制 OpenSSL  RPM包</title>
+    <link href="https://blog.wanhebin.com/en/posts/centos7-custom-openssl-rpm-package/"/>
+    <id>https://blog.wanhebin.com/en/posts/centos7-custom-openssl-rpm-package/</id>
+    <published>2021-05-08T09:00:00.000Z</published>
+    <updated>2021-05-13T02:55:00.000Z</updated>
+    
+    
+    <summary type="html">这是一个新的世界！</summary>
+    
+    
+    
+    <category term="OpenSSL" scheme="https://blog.wanhebin.com/en/categories/OpenSSL/"/>
+    
+    
+    <category term="OpenSSL" scheme="https://blog.wanhebin.com/en/tags/OpenSSL/"/>
+    
+    <category term="RPM" scheme="https://blog.wanhebin.com/en/tags/RPM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MongoDB副本集把SECONDARY提升为PRIMARY</title>
+    <link href="https://blog.wanhebin.com/en/posts/mongodb-replica-set-promotes-secondary-to-primary/"/>
+    <id>https://blog.wanhebin.com/en/posts/mongodb-replica-set-promotes-secondary-to-primary/</id>
+    <published>2021-04-28T06:51:00.000Z</published>
+    <updated>2021-05-10T03:11:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;事故背景&quot;&gt;&lt;a href=&quot;#事故背景&quot; class=&quot;headerlink&quot; title=&quot;事故背景&quot;&gt;&lt;/a&gt;事故背景&lt;/h2&gt;&lt;p&gt;​        线上环境有一个MongoDB副本集，由于是部署在客户那边本地机房，客户误操作把部署副本集的另外2个节点的</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://blog.wanhebin.com/en/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://blog.wanhebin.com/en/tags/MongoDB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL · 物理备份 · XtraBackup 备份原理</title>
+    <link href="https://blog.wanhebin.com/en/posts/mysql-physicalbackup-xtrabackup-principle/"/>
+    <id>https://blog.wanhebin.com/en/posts/mysql-physicalbackup-xtrabackup-principle/</id>
+    <published>2021-04-23T12:16:00.000Z</published>
+    <updated>2021-04-23T10:44:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/tags/MySQL/"/>
+    
+    <category term="XtraBackup" scheme="https://blog.wanhebin.com/en/tags/XtraBackup/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP 安装 pdo_sqlsrv 扩展(CentOS7)</title>
+    <link href="https://blog.wanhebin.com/en/posts/php-install-pdo_sqlsrv-extension/"/>
+    <id>https://blog.wanhebin.com/en/posts/php-install-pdo_sqlsrv-extension/</id>
+    <published>2021-03-22T10:56:00.000Z</published>
+    <updated>2021-05-11T02:44:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;一、安装相关依赖&quot;&gt;&lt;a href=&quot;#一、安装相关依赖&quot; class=&quot;headerlink&quot; title=&quot;一、安装相关依赖&quot;&gt;&lt;/a&gt;一、安装相关依赖&lt;/h3&gt;&lt;h4 id=&quot;1-1-安装微软源&quot;&gt;&lt;a href=&quot;#1-1-安装微软源&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="PHP" scheme="https://blog.wanhebin.com/en/categories/PHP/"/>
+    
+    
+    <category term="PHP" scheme="https://blog.wanhebin.com/en/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MongoDB单节点升级为副本集高可用集群</title>
+    <link href="https://blog.wanhebin.com/en/posts/MongoDB-single-node-upgraded-to-replica-set-cluster/"/>
+    <id>https://blog.wanhebin.com/en/posts/MongoDB-single-node-upgraded-to-replica-set-cluster/</id>
+    <published>2021-01-20T06:00:00.000Z</published>
+    <updated>2021-05-10T05:35:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;项目背景&quot;&gt;&lt;a href=&quot;#项目背景&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MongoDB" scheme="https://blog.wanhebin.com/en/categories/MongoDB/"/>
+    
+    
+    <category term="MongoDB" scheme="https://blog.wanhebin.com/en/tags/MongoDB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>解决 Elasticsearch 7.X 分片数量不足问题</title>
+    <link href="https://blog.wanhebin.com/en/posts/solve-shortage-of-es7.x-shards/"/>
+    <id>https://blog.wanhebin.com/en/posts/solve-shortage-of-es7.x-shards/</id>
+    <published>2021-01-11T11:23:00.000Z</published>
+    <updated>2021-05-12T02:08:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;问题分析&quot;&gt;&lt;a href=&quot;#问题分析&quot; class=&quot;headerlink&quot; title=&quot;问题分析&quot;&gt;&lt;/a&gt;问题分析&lt;/h3&gt;&lt;p&gt;这是Logstash向ES请求创建新索引时，Logstash日志出现以下报错信息。&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="Elasticsearch" scheme="https://blog.wanhebin.com/en/categories/Elasticsearch/"/>
+    
+    
+    <category term="Elasticsearch" scheme="https://blog.wanhebin.com/en/tags/Elasticsearch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker Compose 部署 EFK</title>
+    <link href="https://blog.wanhebin.com/en/posts/docker-compose-deploys-efk/"/>
+    <id>https://blog.wanhebin.com/en/posts/docker-compose-deploys-efk/</id>
+    <published>2020-12-07T08:22:00.000Z</published>
+    <updated>2021-05-09T02:05:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;准备环境&quot;&gt;&lt;a href=&quot;#准备环境&quot; class=&quot;headerlink&quot; title=&quot;准备环境&quot;&gt;&lt;/a&gt;准备环境&lt;/h2&gt;&lt;p&gt;系统版本：CentOS 7.6&lt;/p&gt;
+&lt;p&gt;服务器配置：2H</summary>
+        
+      
+    
+    
+    
+    <category term="ELK" scheme="https://blog.wanhebin.com/en/categories/ELK/"/>
+    
+    
+    <category term="ELK" scheme="https://blog.wanhebin.com/en/tags/ELK/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Elasticsearch 6.6.0 X-PACK 破解</title>
+    <link href="https://blog.wanhebin.com/en/posts/elasticsearch-6.6.0-x-pack-crack/"/>
+    <id>https://blog.wanhebin.com/en/posts/elasticsearch-6.6.0-x-pack-crack/</id>
+    <published>2020-11-18T08:26:00.000Z</published>
+    <updated>2021-05-10T03:10:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;准备环境&quot;&gt;&lt;a href=&quot;#准备环境&quot; class=&quot;headerlink&quot; title=&quot;准备环境&quot;&gt;&lt;/a&gt;准备环境&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;软件包版本&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="Elasticsearch" scheme="https://blog.wanhebin.com/en/categories/Elasticsearch/"/>
+    
+    
+    <category term="Elasticsearch" scheme="https://blog.wanhebin.com/en/tags/Elasticsearch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS 7 配置 mailx 代理 163&amp;QQ 邮箱</title>
+    <link href="https://blog.wanhebin.com/en/posts/centos7-configure-mailx-proxy-163&amp;qq-mailbox/"/>
+    <id>https://blog.wanhebin.com/en/posts/centos7-configure-mailx-proxy-163&amp;qq-mailbox/</id>
+    <published>2020-10-08T07:00:00.000Z</published>
+    <updated>2021-02-24T12:55:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;网易-163-邮箱&quot;&gt;&lt;a href=&quot;#网易-163-邮箱&quot; class=&quot;headerlink&quot; title=&quot;网易 163 邮箱&quot;&gt;&lt;/a&gt;网易 163 邮箱&lt;/h2&gt;&lt;h3 id=&quot;一、安装服务软件&quot;&gt;&lt;a href=&quot;#一、安装服务软件&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="System" scheme="https://blog.wanhebin.com/en/categories/System/"/>
+    
+    
+    <category term="Mailx" scheme="https://blog.wanhebin.com/en/tags/Mailx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 之 mysqldump 备份权限</title>
+    <link href="https://blog.wanhebin.com/en/posts/mysql-mysqldump-backup-permissions/"/>
+    <id>https://blog.wanhebin.com/en/posts/mysql-mysqldump-backup-permissions/</id>
+    <published>2020-10-02T08:26:00.000Z</published>
+    <updated>2020-11-03T02:22:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1-创建一个用于备份数据库的用户&quot;&gt;&lt;a href=&quot;#1-创建一个用于备份数据库的用户&quot; class=&quot;headerlink&quot; title=&quot;1.创建一个用于备份数据库的用户&quot;&gt;&lt;/a&gt;1.创建一个用于备份数据库的用户&lt;/h3&gt;&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/tags/MySQL/"/>
+    
+    <category term="mysqldump" scheme="https://blog.wanhebin.com/en/tags/mysqldump/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 半同步复制</title>
+    <link href="https://blog.wanhebin.com/en/posts/mysql-semisynchronous-replication/"/>
+    <id>https://blog.wanhebin.com/en/posts/mysql-semisynchronous-replication/</id>
+    <published>2020-07-12T09:26:00.000Z</published>
+    <updated>2021-05-06T09:28:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;一、半同步复制&quot;&gt;&lt;a href=&quot;#一、半同步复制&quot; class=&quot;headerlink&quot; title=&quot;一、半同步复制&quot;&gt;&lt;/a&gt;一、半同步复制&lt;/h3&gt;&lt;h4 id=&quot;1-原理&quot;&gt;&lt;a href=&quot;#1-原理&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ZABBIX 4.4安装部署</title>
+    <link href="https://blog.wanhebin.com/en/posts/zabbix-installation-and-deployment/"/>
+    <id>https://blog.wanhebin.com/en/posts/zabbix-installation-and-deployment/</id>
+    <published>2020-07-12T09:20:00.000Z</published>
+    <updated>2020-07-12T09:20:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;安装zabbix&quot;&gt;&lt;a href=&quot;#安装zabbix&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="ZABBIX" scheme="https://blog.wanhebin.com/en/categories/ZABBIX/"/>
+    
+    
+    <category term="ZABBIX" scheme="https://blog.wanhebin.com/en/tags/ZABBIX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis Cluster 介绍与实战</title>
+    <link href="https://blog.wanhebin.com/en/posts/redis-cluster-introduction-and-actual-combat/"/>
+    <id>https://blog.wanhebin.com/en/posts/redis-cluster-introduction-and-actual-combat/</id>
+    <published>2020-07-12T04:46:00.000Z</published>
+    <updated>2020-08-05T11:03:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、Redis-Cluster-分布式分片集群&quot;&gt;&lt;a href=&quot;#一、Redis-Cluster-分布式分片集群&quot; class=&quot;headerlink&quot; title=&quot;一、Redis Cluster 分布式分片集群&quot;&gt;&lt;/a&gt;一、Redis Cluster</summary>
+        
+      
+    
+    
+    
+    <category term="Redis" scheme="https://blog.wanhebin.com/en/categories/Redis/"/>
+    
+    
+    <category term="Redis" scheme="https://blog.wanhebin.com/en/tags/Redis/"/>
+    
+    <category term="NoSQL" scheme="https://blog.wanhebin.com/en/tags/NoSQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 异步复制</title>
+    <link href="https://blog.wanhebin.com/en/posts/mysql-asynchronous-replication/"/>
+    <id>https://blog.wanhebin.com/en/posts/mysql-asynchronous-replication/</id>
+    <published>2020-07-09T09:26:00.000Z</published>
+    <updated>2020-07-09T09:29:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;一、异步复制原理&quot;&gt;&lt;a href=&quot;#一、异步复制原理&quot; class=&quot;headerlink&quot; title=&quot;一、异步复制原理&quot;&gt;&lt;/a&gt;一、异步复制原理&lt;/h3&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 高可用架构之 MHA</title>
+    <link href="https://blog.wanhebin.com/en/posts/mysql-high-availability-architecture-mha/"/>
+    <id>https://blog.wanhebin.com/en/posts/mysql-high-availability-architecture-mha/</id>
+    <published>2020-07-01T14:38:00.000Z</published>
+    <updated>2021-06-28T14:22:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、MHA高可用介绍&quot;&gt;&lt;a href=&quot;#一、MHA高可用介绍&quot; class=&quot;headerlink&quot; title=&quot;一、MHA高可用介绍&quot;&gt;&lt;/a&gt;一、MHA高可用介绍&lt;/h2&gt;&lt;h3 id=&quot;1-简介&quot;&gt;&lt;a href=&quot;#1-简介&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/tags/MySQL/"/>
+    
+    <category term="MHA" scheme="https://blog.wanhebin.com/en/tags/MHA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL 备份与恢复</title>
+    <link href="https://blog.wanhebin.com/en/posts/mysql-backup-and-restore/"/>
+    <id>https://blog.wanhebin.com/en/posts/mysql-backup-and-restore/</id>
+    <published>2020-06-23T12:16:00.000Z</published>
+    <updated>2020-11-20T10:44:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、数据库备份的类型&quot;&gt;&lt;a href=&quot;#一、数据库备份的类型&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/categories/MySQL/"/>
+    
+    
+    <category term="MySQL" scheme="https://blog.wanhebin.com/en/tags/MySQL/"/>
+    
+    <category term="XtraBackup" scheme="https://blog.wanhebin.com/en/tags/XtraBackup/"/>
+    
+  </entry>
+  
+</feed>

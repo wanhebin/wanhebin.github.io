@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySQL 多种结构介绍 | DevOps Technology Stack</title><meta name="keywords" content="MySQL"><meta name="author" content="Hebin Wan"><meta name="copyright" content="Hebin Wan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MySQL 体系结构 连接层 验证用户身份 提供了两种连接方式（TCP&#x2F;IP连接、socket连接） 建立与SQL层交互的线程  SQL 层 接收连接层传过来的SQL语句，如DDL、DML和存储过程等。并把结果返回给连接层。 验证SQL语句的语法、语义。 解析器：解析SQL语句，最终生成执行计划。 优化器：从多个执行计划中选出最优的一条。 执行器：执行选出来的最优计划。 建立一个与存储引擎层交互的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 多种结构介绍">
+<meta property="og:url" content="https://blog.wanhebin.com/en/posts/introduction-to-mysql-multiple-structures/index.html">
+<meta property="og:site_name" content="DevOps Technology Stack">
+<meta property="og:description" content="MySQL 体系结构 连接层 验证用户身份 提供了两种连接方式（TCP&#x2F;IP连接、socket连接） 建立与SQL层交互的线程  SQL 层 接收连接层传过来的SQL语句，如DDL、DML和存储过程等。并把结果返回给连接层。 验证SQL语句的语法、语义。 解析器：解析SQL语句，最终生成执行计划。 优化器：从多个执行计划中选出最优的一条。 执行器：执行选出来的最优计划。 建立一个与存储引擎层交互的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png">
+<meta property="article:published_time" content="2020-06-10T16:03:00.000Z">
+<meta property="article:modified_time" content="2020-11-06T04:04:00.000Z">
+<meta property="article:author" content="Hebin Wan">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png"><link rel="shortcut icon" href="/en/img/favicon.png"><link rel="canonical" href="https://blog.wanhebin.com/en/posts/introduction-to-mysql-multiple-structures/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/en/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/en/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"Traditional Chinese Activated Manually","cht_to_chs":"Simplified Chinese Activated Manually","day_to_night":"Dark Mode Activated Manually","night_to_day":"Light Mode Activated Manually","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MySQL 多种结构介绍',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-11-06 12:04:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/en/atom.xml" title="DevOps Technology Stack" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/en/archives/"><div class="headline">Articles</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/en/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/en/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-compass"></i><span> Catalog</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/en/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li><li><a class="site-page child" href="/en/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/en/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-cogs"></i><span> Tools</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://docs.wanhebin.com/"><i class="fa-fw fas fa-book"></i><span> DOCS</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://pic.wanhebin.com/"><i class="fa-fw fas fa-images"></i><span> Beds</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://download.wanhebin.com/"><i class="fa-fw fas fa-download"></i><span> Download</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://sql.wanhebin.com/"><i class="fa-fw fas fa-database"></i><span> SOAR</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> Entertainment</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/musicplayer/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/bizhi/"><i class="fa-fw fas fa-image"></i><span> Wallpapers</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/games/Mikutap/"><i class="fa-fw fas fa-gamepad"></i><span> Games</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/en/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/en/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-globe"></i><span> English</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="http://blog.wanhebin.com/"><span> 中文 Chinese</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/en/">DevOps Technology Stack</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/en/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-compass"></i><span> Catalog</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/en/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></li><li><a class="site-page child" href="/en/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></li><li><a class="site-page child" href="/en/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-cogs"></i><span> Tools</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://docs.wanhebin.com/"><i class="fa-fw fas fa-book"></i><span> DOCS</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://pic.wanhebin.com/"><i class="fa-fw fas fa-images"></i><span> Beds</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://download.wanhebin.com/"><i class="fa-fw fas fa-download"></i><span> Download</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="http://sql.wanhebin.com/"><i class="fa-fw fas fa-database"></i><span> SOAR</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> Entertainment</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/musicplayer/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/bizhi/"><i class="fa-fw fas fa-image"></i><span> Wallpapers</span></a></li><li><a class="site-page child" target="_blank" rel="noopener" href="https://www.wanhebin.com/application/games/Mikutap/"><i class="fa-fw fas fa-gamepad"></i><span> Games</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/en/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/en/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-globe"></i><span> English</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="http://blog.wanhebin.com/"><span> 中文 Chinese</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MySQL 多种结构介绍</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-06-10T16:03:00.000Z" title="Created 2020-06-11 00:03:00">2020-06-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-11-06T04:04:00.000Z" title="Updated 2020-11-06 12:04:00">2020-11-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/en/categories/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">485</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>1min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 多种结构介绍"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="MySQL-体系结构"><a href="#MySQL-体系结构" class="headerlink" title="MySQL 体系结构"></a>MySQL 体系结构</h2><p><img src="https://pic-cdn.wanhebin.com/2021/05/29/e0a4276745017.png" alt="mysql_architecture.png"></p>
+<h3 id="连接层"><a href="#连接层" class="headerlink" title="连接层"></a>连接层</h3><ol>
+<li>验证用户身份</li>
+<li>提供了两种连接方式（TCP/IP连接、socket连接）</li>
+<li>建立与SQL层交互的线程</li>
+</ol>
+<h3 id="SQL-层"><a href="#SQL-层" class="headerlink" title="SQL 层"></a>SQL 层</h3><ol>
+<li>接收连接层传过来的SQL语句，如DDL、DML和存储过程等。并把结果返回给连接层。</li>
+<li>验证SQL语句的语法、语义。</li>
+<li>解析器：解析SQL语句，最终生成执行计划。</li>
+<li>优化器：从多个执行计划中选出最优的一条。</li>
+<li>执行器：执行选出来的最优计划。<ul>
+<li>建立一个与存储引擎层交互的线程。</li>
+<li>执行SQL获取存储引擎层传来的数据，结构化成表格。</li>
+</ul>
+</li>
+<li>如果有缓存的化，会把数据写入到缓存。</li>
+<li>记录执行日志（binlog)</li>
+</ol>
+<h3 id="存储引擎层"><a href="#存储引擎层" class="headerlink" title="存储引擎层"></a>存储引擎层</h3><ol>
+<li>接收SQL层传过来的执行语句</li>
+<li>与磁盘交互，进行数据的读取、存储，将数据返回给SQL层</li>
+</ol>
+<p>&nbsp;</p>
+<h2 id="MySQL-逻辑结构"><a href="#MySQL-逻辑结构" class="headerlink" title="MySQL 逻辑结构"></a>MySQL 逻辑结构</h2><ol>
+<li>库</li>
+<li>表：元数据 + 真实数据行</li>
+<li>元数据：列 + 其他属性</li>
+<li>列：列名 + 数据类型 + 约束（非空、主键、默认值）</li>
+</ol>
+<p>&nbsp;</p>
+<h2 id="MySQL-物理结构"><a href="#MySQL-物理结构" class="headerlink" title="MySQL 物理结构"></a>MySQL 物理结构</h2><h3 id="数据物理结构"><a href="#数据物理结构" class="headerlink" title="数据物理结构"></a>数据物理结构</h3><p>mysql最底层就是数据文件，可以手动在data目录下创建目录，数据库中就能看到这个库。</p>
+<ol>
+<li>MySQL的最底层的物理结构是数据文件，也就是说与存储引擎层打交道的文件，是数据文件。</li>
+<li>存储引擎分为很多种类（Linux中的FS）。</li>
+<li>不同存储引擎的区别：存储方式、安全性、性能。</li>
+</ol>
+<p>数据库创建时：库和表的名字一定要小写。</p>
+<h3 id="数据库物理结构大小单位"><a href="#数据库物理结构大小单位" class="headerlink" title="数据库物理结构大小单位"></a>数据库物理结构大小单位</h3><ol>
+<li>段：由多个区构成，理论上一个表就是一个段。</li>
+<li>区：由连续的多个页组成，理论上一条数据就是一个区，默认为1M。</li>
+<li>页：数据库中的最小存储单元，默认是16K。</li>
+<li>分区表：一个区构成一个段就是一个表。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Hebin Wan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://blog.wanhebin.com/en/posts/introduction-to-mysql-multiple-structures/">https://blog.wanhebin.com/en/posts/introduction-to-mysql-multiple-structures/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/en/tags/MySQL/">MySQL</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> Donate</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/en/img/wechatpayqr.png" target="_blank"><img class="post-qr-code-img" src="/en/img/wechatpayqr.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/en/img/alipayqr.jpg" target="_blank"><img class="post-qr-code-img" src="/en/img/alipayqr.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/en/posts/mysql-tablespace-management/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/en/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">MySQL 表空间管理</div></div></a></div><div class="next-post pull-right"><a href="/en/posts/mysql-user-permission-management/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="onerror=null;src='/en/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">MySQL 用户及权限管理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/en/posts/mysql-tablespace-management/" title="MySQL 表空间管理"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-21</div><div class="title">MySQL 表空间管理</div></div></a></div><div><a href="/en/posts/mysql-physicalbackup-xtrabackup-principle/" title="MySQL · 物理备份 · XtraBackup 备份原理"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-23</div><div class="title">MySQL · 物理备份 · XtraBackup 备份原理</div></div></a></div><div><a href="/en/posts/mysql-mysqldump-backup-permissions/" title="MySQL 之 mysqldump 备份权限"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-02</div><div class="title">MySQL 之 mysqldump 备份权限</div></div></a></div><div><a href="/en/posts/mysql-transaction-description/" title="MySQL 事务详解"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-21</div><div class="title">MySQL 事务详解</div></div></a></div><div><a href="/en/posts/mysql-semisynchronous-replication/" title="MySQL 半同步复制"><img class="cover" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-12</div><div class="title">MySQL 半同步复制</div></div></a></div><div><a href="/en/posts/mysql-backup-and-restore/" title="MySQL 备份与恢复"><img class="cover" src="https://pic-cdn.wanhebin.com/2021/05/26/4b651113c08b5.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-23</div><div class="title">MySQL 备份与恢复</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div><div id="comment-switch"><span class="first-comment">Twikoo</span><span class="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/en/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Hebin Wan</div><div class="author-info__description">DevOps Technology Sharing</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/en/archives/"><div class="headline">Articles</div><div class="length-num">36</div></a></div><div class="card-info-data-item is-center"><a href="/en/tags/"><div class="headline">Tags</div><div class="length-num">28</div></a></div><div class="card-info-data-item is-center"><a href="/en/categories/"><div class="headline">Categories</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wanhebin"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:2412620343@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/en/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-text">MySQL 体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%B1%82"><span class="toc-text">连接层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-%E5%B1%82"><span class="toc-text">SQL 层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%B1%82"><span class="toc-text">存储引擎层</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84"><span class="toc-text">MySQL 逻辑结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="toc-text">MySQL 物理结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="toc-text">数据物理结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84%E5%A4%A7%E5%B0%8F%E5%8D%95%E4%BD%8D"><span class="toc-text">数据库物理结构大小单位</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/en/posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/" title="CentOS 8.X installation software error No available modular metadata for modular package"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="CentOS 8.X installation software error No available modular metadata for modular package"/></a><div class="content"><a class="title" href="/en/posts/centos8.x-installation-software-error-no-available-modular-metadata-for-modular-package/" title="CentOS 8.X installation software error No available modular metadata for modular package">CentOS 8.X installation software error No available modular metadata for modular package</a><time datetime="2021-12-08T15:00:00.000Z" title="Created 2021-12-08 23:00:00">2021-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/en/posts/k8s-prometheus-monitor-jvm-2/" title="K8S 中使用 Prometheus 监控JVM (二)"><img src="https://pic-cdn.wanhebin.com/2021/05/22/8d4737d4e9ccc.png" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="K8S 中使用 Prometheus 监控JVM (二)"/></a><div class="content"><a class="title" href="/en/posts/k8s-prometheus-monitor-jvm-2/" title="K8S 中使用 Prometheus 监控JVM (二)">K8S 中使用 Prometheus 监控JVM (二)</a><time datetime="2021-06-28T15:30:00.000Z" title="Created 2021-06-28 23:30:00">2021-06-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/en/posts/ssl-tls-handshake-how-does-it-work/" title="SSL/TLS 握手：详细过程及其工作原理"><img src="https://pic-cdn.wanhebin.com/2021/06/05/1a74e88fb5529.jpg" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="SSL/TLS 握手：详细过程及其工作原理"/></a><div class="content"><a class="title" href="/en/posts/ssl-tls-handshake-how-does-it-work/" title="SSL/TLS 握手：详细过程及其工作原理">SSL/TLS 握手：详细过程及其工作原理</a><time datetime="2021-06-05T09:00:00.000Z" title="Created 2021-06-05 17:00:00">2021-06-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/en/posts/k8s-prometheus-monitor-jvm/" title="K8S 中使用 Prometheus 监控JVM (一)"><img src="https://pic-cdn.wanhebin.com/2021/05/22/8d4737d4e9ccc.png" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="K8S 中使用 Prometheus 监控JVM (一)"/></a><div class="content"><a class="title" href="/en/posts/k8s-prometheus-monitor-jvm/" title="K8S 中使用 Prometheus 监控JVM (一)">K8S 中使用 Prometheus 监控JVM (一)</a><time datetime="2021-05-22T08:00:00.000Z" title="Created 2021-05-22 16:00:00">2021-05-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/en/posts/centos7-custom-openssl-rpm-package/" title="CentOS 7 定制 OpenSSL  RPM包"><img src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/en/img/404.jpg'" alt="CentOS 7 定制 OpenSSL  RPM包"/></a><div class="content"><a class="title" href="/en/posts/centos7-custom-openssl-rpm-package/" title="CentOS 7 定制 OpenSSL  RPM包">CentOS 7 定制 OpenSSL  RPM包</a><time datetime="2021-05-08T09:00:00.000Z" title="Created 2021-05-08 17:00:00">2021-05-08</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Hebin Wan</div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn"><span>皖ICP备 19005648号</span></a><br><a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34150202000248"><img class="icp-icon" src="/img/govimg.png"><span>皖公网安备 34150202000248号</span></a><p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为 Hexo"></a>&nbsp;<a target="_blank" href="https://github.com/jerryc127/hexo-theme-butterfly/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用 Butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用 jsDelivr 为静态资源提供CDN加速"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站托管于 Github"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="Increase font size"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="Decrease font size"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/en/js/utils.js"></script><script src="/en/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/en/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'twikoo-2gbvgrofcc0f0e0c',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'twikoo-2gbvgrofcc0f0e0c',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo@1.4.11/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'f40575dd28f4c6e5c4fd',
+      clientSecret: 'd5ec33b3591e0dfba8e04b80dc4a9fe1a991e978',
+      repo: 'hexo-blog-comments',
+      owner: 'wanhebin',
+      admin: ['wanhebin'],
+      id: '62ca920458893931c941b3b37686ff1b',
+      language: 'en',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Twikoo' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
